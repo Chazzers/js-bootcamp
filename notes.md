@@ -4,15 +4,15 @@
 
 ### Inhoudsopgave
 1. [Values, Types, and Operators](#h1-values-types-and-operators)
-2. Program Structure
-3. Functions
-4. Data Structures: Objects and Arrays
-5. Higher-order Functions
-6. The Secret Life of Objects
-8. Bugs and Errors
-9. Regular Expressions
-10. Modules
-11. Asynchronous Programming
+2. [Program Structure](#h2-program-structure)
+3. [Functions](#h3-functions)
+4. [Data Structures: Objects and Arrays](#h4-data-structures-objects-and-arrays)
+5. [Higher-order Functions](#h5-higher---order-functions)
+6. [The Secret Life of Objects](#h6-the-secret-life-of-objects)
+8. [Bugs and Errors](#h8-bugs-and-errors)
+9. [Regular Expressions](#h9-regular-expressions)
+10. [Modules](#h10-modules)
+11. [Asynchronous Programming](#h11-asynchronous-programming)
 
 ## H1: Values, Types, And Operators
 
@@ -579,7 +579,7 @@ Soorten functions kunnen onderscheiden worden in functions die gebruikt worden v
 
 Side-effects geven niet per see een waarde mee wanneer ze gecalled worden.
 
-## H4: Data Structures: Objects and Arrays
+## H4: Data Structures: Objects and Arrays
 
 ### Data Sets
 
@@ -795,15 +795,9 @@ function rememberUrgently(task) {
 
 Als een task toegevoegd moet worden, kun je remember(‘ietsDoen’); aanroepen waardoor een taak wordt toegevoegd aan het einde van de array. Als je een taak gaat uitvoeren kun je getTask(); aanroepen waardoor de eerste taak uit de array wordt gehaald. Als je een taak heb die bovenaan je todo-list moet staan kun je rememberUrgently(ietsBelangrijksDoen); uitvoeren die dan een taak toevoegt aan het begin van de takenlijst (array).
 
-## Chapter 5
-
-## Chapter 6
-
-## Chapter 8
-
-## Chapter 9
-
-## Chapter 10
-
-## Chapter 11
-
+## H5: Higher-order Functions
+## H6: The Secret Life of Objects
+## H8: Bugs and Errors
+## H9: Regular Expressions
+## H10: Modules
+## H11: Asynchronous Programming
