@@ -1,8 +1,11 @@
-# Notes
+# JS-bootcamp
+
+## Eloquent JavaScript aantekeningen
 
 *You can write notes for each chapter here*.
 
-## Chapter 1
+## H1: Values, Types, And Operators
+
 
 ## Chapter 2
 
