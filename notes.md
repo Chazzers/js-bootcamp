@@ -6,7 +6,6 @@
 
 ## H1: Values, Types, And Operators
 
-
 ## Chapter 2
 
 ## Chapter 3
