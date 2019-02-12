@@ -335,15 +335,22 @@ Functions zijn er om:
 
 ### Defining a function
 
-Een functie definitie is een normale binding waarvan de waarde van de binding een functie is.
-Dus const square = function(x){…}; zorgt ervoor dat square refereert naar een functie.
+Een **functie definitie** is een normale binding waarvan de waarde van de binding een functie is.
+Dus:  
+`const square = function(x){…};`  
+zorgt ervoor dat square refereert naar een functie.
 
-Een functie wordt gemaakt met een expression dat begint met het keyword function. Functions kunnen parameters hebben en hebben altijd een body (hier staan statements in).
+Een functie wordt gemaakt met een **expression** dat begint met het keyword `function`. Functions kunnen parameters hebben en hebben altijd een **body** (hier staan statements in).
 
-Return statements bepalen de waardes die de function returnt. Wanneer deze statement gecontroleerd wordt wordt er onmiddellijk uit de huidige functie gesprongen en wordt de gereturnde waarde gegeven aan de code die de functie aanroept. Een return keyword zonder expression erna geeft de gereturnde waarde: undefined. Functies die geen return statement hebben, returnen ook undefined.
+`return` statements bepalen de waardes die de function returnt. Wanneer deze statement gecontroleerd wordt wordt er onmiddellijk uit de huidige functie gesprongen en wordt de gereturnde waarde gegeven aan de code die de functie aanroept. Een `return` keyword zonder expression erna geeft de gereturnde waarde: undefined. Functies die geen return statement hebben, returnen ook `undefined`.
 
+**Parameters** van een function gedragen zich als normale bindings, maar de oorspronkelijke waardes van de parameters worden meegegeven door de **caller** van de functie, niet binnen de code van de functie zelf. Dus:
 
-Parameters van een function gedragen zich als normale bindings, maar de oorspronkelijke waardes van de  parameters worden meegegeven door de caller van de functie, niet binnen de code van de functie zelf. 
+`function myFunction(yolo){
+    console.log(yolo);
+}
+
+myFunction('You Only Live Once')`
 
 ### Bindings and scopes
 
