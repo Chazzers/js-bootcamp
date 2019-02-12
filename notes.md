@@ -43,12 +43,18 @@ NaN stands for “not a number”, although it is a value of the number type.
 A string is a value that is typed between quotes: ‘Hello World’.
 A few characters are hard to get between quotes like: ‘’. When a \ is typed inside a string the next character is considered special. ‘hi\nhi will give:
 
-hi
-hi
+`hi
+hi`
 
 The + operator can be used on Strings to make multiple strings glue together. ‘i’ + ‘ like’ = i like.
 
-The difference between single or double quotes is which type of quote you need to escape inside of them. Backtick-quoted strings (template literals) can do a few more tricks. They can embed other values. `half of 100 is ${100 / 2}`  = half of 100 is 50.
+The difference between single or double quotes is which type of quote you need to escape inside of them. Backtick-quoted strings (template literals) can do a few more tricks. They can embed other values. 
+
+`'half of 100 is ${100 / 2}'`
+
+Zal dit weergeven in de console:
+
+**half of 100 is 50.**
 
 ### Unary Operators
 
@@ -62,9 +68,9 @@ Boolean has just two values: true and false.
 
 3>2 = true.
 
->= (greater than or equal to), <= (less than or equal to), == (equal to), and != (not equal to).
+`>= (greater than or equal to), <= (less than or equal to), == (equal to), and != (not equal to).`
 
-Only one value that isn’t equal to its self and that is NaN.
+There is only one value that isn’t equal to its self and that is NaN.
 
 ### Logical operators
 
@@ -78,8 +84,8 @@ Logical operators are: and, or ,and not.
 
 Another logical operator is ternary, operating on three values. This one is called the conditional operator. When it is true it will choose the middle value and if it is false the value on the right. So:
 
-true ? 1 : 2 = 1
-false ? 1 : 2 = 2
+`true ? 1 : 2 = 1
+false ? 1 : 2 = 2`
 
 half of 100 is ${100 / 2}
 
