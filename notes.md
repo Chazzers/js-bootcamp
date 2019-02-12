@@ -43,14 +43,19 @@ NaN stands for “not a number”, although it is a value of the number type.
 A string is a value that is typed between quotes: ‘Hello World’.
 A few characters are hard to get between quotes like: ‘’. When a \ is typed inside a string the next character is considered special. ‘hi\nhi will give:
 
-`hi
-hi`
+~~~~javascript
+hi
+hi
+~~~~
 
 The + operator can be used on Strings to make multiple strings glue together. ‘i’ + ‘ like’ = i like.
 
 The difference between single or double quotes is which type of quote you need to escape inside of them. Backtick-quoted strings (template literals) can do a few more tricks. They can embed other values. 
 
-`'half of 100 is ${100 / 2}'`
+~~~~javascript
+console.log('half of 100 is ${100 / 2}')
+~~~~
+
 
 Zal dit weergeven in de console:
 
@@ -68,7 +73,9 @@ Boolean has just two values: true and false.
 
 3>2 = true.
 
-`>= (greater than or equal to), <= (less than or equal to), == (equal to), and != (not equal to).`
+~~~~javascript
+>= (greater than or equal to), <= (less than or equal to), == (equal to), and != (not equal to).
+~~~~
 
 There is only one value that isn’t equal to its self and that is NaN.
 
@@ -76,22 +83,24 @@ There is only one value that isn’t equal to its self and that is NaN.
 
 Logical operators are: and, or ,and not. 
 
+~~~~javascript
 && = and. Its result is true only if both the values given to it are true.
 
 || = or. It produces true if either of the values given to it is true.
 
 ! = not. It flips the value given to it. 
+~~~~
 
 Another logical operator is ternary, operating on three values. This one is called the conditional operator. When it is true it will choose the middle value and if it is false the value on the right. So:
 
-`true ? 1 : 2 = 1
-false ? 1 : 2 = 2`
-
-half of 100 is ${100 / 2}
+~~~~javascript
+true ? 1 : 2 = 1
+false ? 1 : 2 = 2
+~~~~
 
 ### Empty values
 
-There are two special values, written null and undefined that are used to denote the absence of a meaningful value. No meaningful value yields: undefined. 
+There are two special values, written `null` and `undefined` that are used to denote the absence of a meaningful value. No meaningful value yields: undefined. 
 
 The difference in meaning between null and undefined is an accident of JavaScript’s design, and it doesn’t matter most of the time. Recommendation: treat them as interchangeable. 
 
@@ -99,16 +108,18 @@ The difference in meaning between null and undefined is an accident of JavaScrip
 
 When an operator is applied to the wrong type of value, JS will quietly convert that value to the type it needs (forgiving language). This is called type coercion. 
 
-When you want to test if a value has a real value you can do that by using the == (or !=) operator.
+When you want to test if a value has a real value you can do that by using the `==` (or `!=`) operator.
 
-If you do not want type conversion to happen, you can use two additional operators: === and !==. 
+If you do not want type conversion to happen, you can use two additional operators: `===`and `!==`. 
 
 ### Short-Circuiting Of Logical Operators
 
 The || operator for example will return the value to its left, when that can be converted to true, and will return the value on its right otherwise. So:
 
-`null || “user” = user
-“Agnes” || “user” = Agnes`
+~~~~javascript
+null || “user” = user
+“Agnes” || “user” = Agnes
+~~~~
 
 The rules for converting strings and numbers to Boolean values state that 0, NaN, and the empty string (“”) count as false, and the rest is true. 
 
@@ -126,9 +137,11 @@ If an expression corresponds to a sentence fragment, a JS statement corresponds 
 
 To catch and hold values, JS provides a thing called a **binding**, or **variable**:
 
-`let caught = 5 * 5;`
+~~~~javascript
+let caught = 5 * 5;
+~~~~
 
-That’s a second kind of statement. The special word let indicates that this sentence is going to define a binding. It is followed by its name and if we want to give it a value by an = operator and an expression.
+That’s a second kind of statement. The special word let indicates that this sentence is going to define a binding. It is followed by its name and if we want to give it a value by an `=` operator and an expression.
 
 The previous statement creates a binding called caught and uses it to grab the number that is produced by multiplying 5 by 5.
 
@@ -136,11 +149,11 @@ After a binding has been defined, its name can be used as an expression.
 A binding with a value is not stuck with that value, it can be changed. 
 If you ask for the value of an empty binding, you’ll get undefined.
 
-A single **let** statement may define multiple bindings. The definitions must be separated by commas.
+A single `let` statement may define multiple bindings. The definitions must be separated by commas.
 
-The words **var** and **const** can also be used to create bindings, in a way similar to let.
+The words `var` and `const` can also be used to create bindings, in a way similar to `let`.
 
-The word const stands for constant. It defines a constant binding which points at the same value for as long as it lives. This is useful for bindings that give a name to a value so that you can easily refer to it later.
+The word `const` stands for constant. It defines a constant binding which points at the same value for as long as it lives. This is useful for bindings that give a name to a value so that you can easily refer to it later.
 
 
 ### Binding Names
@@ -151,12 +164,13 @@ Words with a special meaning such as let are keywords and the may **not** be use
 
 ### Alle binding names:
 
-`break case catch class const continue debugger default
+~~~~javascript
+break case catch class const continue debugger default
 delete do else enum export extends false finally for
 function if implements import interface in instanceof let
 new package private protected public return static super
-switch this throw true try typeof var void while with yield`
-
+switch this throw true try typeof var void while with yield
+~~~~
 
 ### The environment
 
@@ -164,11 +178,13 @@ De verzameling bindings en hun waarden die bestaan op een bepaalde tijd heet: **
 
 ### Functions
 
-Een **function** is een stukje van een script dat is verpakt in een waarde. Deze waarden kunnen toegevoegd worden om het verpakte script uit te voeren.
+Een `function` is een stukje van een script dat is verpakt in een waarde. Deze waarden kunnen toegevoegd worden om het verpakte script uit te voeren.
 
 Het uitvoeren van een function heet een **function call**: 
 
-`function myFunction(){…};`
+~~~~javascript
+function myFunction(){…};`
+~~~~
 
 De values binnen de haakjes van de functions zijn **parameters** en worden alleen binnen de functie gebruikt. Waarden die gegeven worden aan functions heten **arguments**.
 
@@ -176,7 +192,9 @@ De prompt function wordt vrijwel nooit gebruikt omdat je geen controle hebt over
 
 ### Console.log function
 
-`console.log();`
+~~~~javascript
+console.log();
+~~~~
 
 Met deze functie worden de argumenten binnen de haakjes als tekst-output gezet in de web-console. 
 
@@ -208,11 +226,13 @@ Een statement dat begint met het keyword `while` creëert een loop `while(…){�
 
 Een `do` loop zal altijd zijn body één keer uitvoeren, waarna de loop gaat testen of het moet stoppen na de eerste keer. Bijvoorbeeld:
 
-`let yourName;
+~~~~javascript
+let yourName;
 do {
   yourName = prompt("Who are you?");
 } while (!yourName);
-console.log(yourName);`
+console.log(yourName);
+~~~~
 
 Dit voorbeeld forceert de gebruiker ervan om iets in te vullen door constant de vraag te herhalen tot de code input krijgt dat niet een lege string is. De ! operator zorgt ervoor dat een waarde naar een boolean wordt omgezet voordat de conditional gecontroleerd wordt en alle strings behalve “” zullen omgezet worden in true. 
 
@@ -224,9 +244,11 @@ Spaces of tabs en enters kunnen gebruikt worden om de code leesbaarder te maken.
 
 JS heeft ook `for` loops die korter geschreven zijn en vaak wat duidelijker in elkaar steken. 
 
-`for (let number = 0; number <= 12; number = number + 2) {
+~~~~javascript
+for (let number = 0; number <= 12; number = number + 2) {
   console.log(number);
-}`
+}
+~~~~
 
 Tussen de haakjes van de for loop moeten er twee `;` zitten. 
 
@@ -239,25 +261,29 @@ Tussen de haakjes van de for loop moeten er twee `;` zitten.
 
 Dus:
 
-`for (let i = 0; i < 3; i++)`  
-
+~~~~javascript
+for (let i = 0; i < 3; i++)
+~~~~
 
 ### Breaking Out of a Loop
 
 Wachten totdat de looping condition false wordt is niet de enige manier waarmee een loop gestopt kan worden. De statement `break;` kan ook de loop stoppen. Vaak wordt dit gedaan aan de hand van een `if` statement. 
 
-`for (let current = 20; ; current = current + 1) {
+~~~~javascript
+for (let current = 20; ; current = current + 1) {
   if (current % 7 == 0) {
     console.log(current);
     break;
   }
-}`
+}
+~~~~
 
 Als de loop niet een conditional of `break` heeft wordt het een infinite loop. Hierdoor kan je computer crashen. 
 
 Het `continue` keyword is hetzelfde als break, op de manier dat het de progressie van de loop beïnvloed. Het verschil is dat met `continue` uit de loop wordt gebroken en verder wordt gegaan met de volgende iteratie. Dus:
 
-`var text = "";
+~~~~javascript
+var text = "";
 
 for (var i = 0; i < 10; i++) {
   if (i === 3) {
@@ -266,9 +292,10 @@ for (var i = 0; i < 10; i++) {
   text = text + i;
 }
 
+
 console.log(text); 
 // expected output: "012456789"
-`
+~~~~
 
 ### Updating Bindings Succinctly (kort en bondig)
 
@@ -276,23 +303,28 @@ Vooral tijdens het loopen, zal een programma vaak een binding moeten updaten om 
 
 **JS Shortcut:**
 
-`counter += 1; || counter *= 1; || counter -= 1; || counter /= 1;
-Of: counter++; || counter--`
+~~~~javascript
+counter += 1; || counter *= 1; || counter -= 1; || counter /= 1;
+Of: counter++; || counter--
+~~~~
 
 ### Dispatching on a Value with Switch
 
 Het is niet ongebruikelijk voor een code om er zo uit te zien:
 
-`if (x == "value1") action1();
+~~~~javascript
+if (x == "value1") action1();
 else if (x == "value2") action2();
 else if (x == "value3") action3();
 else defaultAction();`
+~~~~
 
 Er is een keyword, `switch`, die ervoor bedoeld is om zo een expression er directer uit te laten zien.
 
 Helaas ziet het er een beetje ongemakkelijk uit (komt van Java)— een reeks `if` statements kunnen er beter uit zien. Dit ziet er zo uit:
 
-`switch (prompt("What is the weather like?")) {
+~~~~javascript
+switch (prompt("What is the weather like?")) {
   case "rainy":
     console.log("Remember to bring an umbrella.");
     break;
@@ -304,7 +336,8 @@ Helaas ziet het er een beetje ongemakkelijk uit (komt van Java)— een reeks `if
   default:
     console.log("Unknown weather type!");
     break;
-}`
+}
+~~~~
 
 Je kan zoveel `case` labels als je wilt binnen een **switch-block** zetten. Het programma zal beginnen met uitvoeren bij het label dat overeenkomt met de waarde die aan de `switch` gegeven is. De `case` zal uitgevoerd blijven worden, zelfs als andere labels erna worden aangeroepen, totdat het een `break` statement tegen komt. 
 
@@ -312,7 +345,9 @@ Je kan zoveel `case` labels als je wilt binnen een **switch-block** zetten. Het 
 
 Binding names mogen geen spaties bevatten. Dit kan opgelost worden door camel casing te gebruiken: 
 
-`function myFunctionIsAwesome(){…}`
+~~~~javascript
+function myFunctionIsAwesome(){…}`
+~~~~
 
 (elk woord met een hoofdletter behalve het eerste woord) 
 
@@ -337,7 +372,9 @@ Functions zijn er om:
 
 Een **functie definitie** is een normale binding waarvan de waarde van de binding een functie is.
 Dus:  
-`const square = function(x){…};`  
+~~~~javascript
+const square = function(x){…};
+~~~~  
 zorgt ervoor dat square refereert naar een functie.
 
 Een functie wordt gemaakt met een **expression** dat begint met het keyword `function`. Functions kunnen parameters hebben en hebben altijd een **body** (hier staan statements in).
@@ -346,11 +383,13 @@ Een functie wordt gemaakt met een **expression** dat begint met het keyword `fun
 
 **Parameters** van een function gedragen zich als normale bindings, maar de oorspronkelijke waardes van de parameters worden meegegeven door de **caller** van de functie, niet binnen de code van de functie zelf. Dus:
 
-`function myFunction(yolo){
+~~~~javascript
+function myFunction(yolo){
     console.log(yolo);
 }
 
-myFunction('You Only Live Once')`
+myFunction('You Only Live Once')
+~~~~
 
 ### Bindings and scopes
 
@@ -367,8 +406,9 @@ Scopes kunnen genest worden wat ervoor zorgt dat er niet alleen local en global 
 
 Een function binding is simpelweg een naam voor een specifiek gedeelte van de code. Zo een binding wordt één keer gedefinieerd en kan nooit verandert worden. (verschil tussen de name van de function en de binding van de functie kan verwarrend zijn)
 
-Een function value kan alles doen dat alle andere values kunnen doen— je kan het gebruiken in expressions, niet alleen een call uitvoeren. Een function value kan in een nieuwe binding worden opgeslagen, gebruiken als een argument van een function, enzovoorts. Een binding dat een vast houdt is nog steeds een normale binding en kan een nieuwe waarde krijgen:
+Een function value kan alles doen dat alle andere values kunnen doen— je kan het gebruiken in expressions, niet alleen een call uitvoeren. Een function value kan in een nieuwe binding worden opgeslagen, gebruiken als een argument van een function, enzovoorts. Een binding dat een vast houdt is nog steeds een normale binding en kan een nieuwe waarde krijgen:
 
+~~~~javascript
 let launchMissiles = function() {
   missileSystem.launch("now");
 };
@@ -376,30 +416,34 @@ if (safeMode) {
   launchMissiles = function() {/* do nothing */};
 }
 // De functie is leeg in safeMode.
+~~~~
 
 ### Declaration notation
 
 Er is een kortere manier om een function binding te maken. Dit kan gedaan worden door:
 
+~~~~javascript
 function square(x) {
   return x * x;
 }
 square();
-
+~~~~
 Of:
-
+~~~~javascript
 console.log("The future says:", future());
 
 function future() {
   return "You'll never have flying cars";
 }
+~~~~
 
 Functie declaraties zijn niet onderdeel van het top-to-bottom flow of control. Ze worden conceptueel verplaatst naar het bovenste gedeelte van de scope.
 
 ### Arrow Functions
 
-Er is een derde notatie voor functies, dit ziet er anders uit dan de anderen. Het gebruikt een (=>) anders dan greater than or equal to(>=).
+Er is een derde notatie voor functies, dit ziet er anders uit dan de anderen. Het gebruikt een (`=>`) anders dan greater than or equal to(`>=`).
 
+~~~~javascript
 const power = (base, exponent) => {
   let result = 1;
   for (let count = 0; count < exponent; count++) {
@@ -407,18 +451,21 @@ const power = (base, exponent) => {
   }
   return result;
 };
+~~~~
 
-De pijl komt na de parameters en vóór de function body. 
+De pijl komt na de parameters en **vóór** de function body. 
 Dus:
 
 (parameter1, parameter2) => {body}
 
-Als er maar één parameter is kunnen de () weg die de parameters wrappen. Als de body maar één expression heeft kunnen de {} en return ook weg.
+Als er maar **één** parameter is kunnen de **()** weg die de parameters wrappen.  
+Als de body maar **één** expression heeft kunnen de {} en return ook weg.
 
+~~~~javascript
 const square1 = (x) => { return x * x; };
 const square2 = x => x * x;
 // Doen hetzelfde
-
+~~~~
 
 ### The Call Stack
 
@@ -428,15 +475,15 @@ function greet(who) {
 greet("Harry");
 console.log(“Bye");
 
-### Doet dit: 
+**Doet dit:**
 
-not in function
-   in greet
-        in console.log
-   in greet
-not in function
-   in console.log
-not in function
+>not in function
+>in greet
+>in console.log
+>in greet
+>not in function
+>in console.log
+>not in function
 
 Dus:
 Computer ziet function greet(doet niks tot call)
