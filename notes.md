@@ -7,8 +7,6 @@
 ## H1: Values, Types, And Operators
 
 Inside the computer’s world, there is only data. All data is stored as long sequences of bits. Bits are any kind of two-valued things, usually described as zeros and ones. (13 in bits = 00001101 in binary).
- = 13
-
 
 ### Values
 
