@@ -107,16 +107,14 @@ If you do not want type conversion to happen, you can use two additional operato
 
 The || operator for example will return the value to its left, when that can be converted to true, and will return the value on its right otherwise. So:
 
-null || “user” = user
-“Agnes” || “user” = Agnes
+`null || “user” = user
+“Agnes” || “user” = Agnes`
 
 The rules for converting strings and numbers to Boolean values state that 0, NaN, and the empty string (“”) count as false, and the rest is true. 
 
 && works similarly but the other way around. When the value to its left is something that converts to false, it returns that value, and otherwise it returns the value on its right. 
 
 The conditional operator works in a similar way. Of the second and third values, only the one that is selected is evaluated.
-
-
 
 ## H2: Program Structure
 
@@ -126,9 +124,9 @@ A fragment of code that produces a value is called an expression. An expression 
 
 If an expression corresponds to a sentence fragment, a JS statement corresponds to a full sentence. The simplest kind of statement is an expression with a semicolon after it. 
 
-To catch and hold values, JS provides a thing called a binding, or variable:
+To catch and hold values, JS provides a thing called a **binding**, or **variable**:
 
-	let caught = 5 * 5;
+`let caught = 5 * 5;`
 
 That’s a second kind of statement. The special word let indicates that this sentence is going to define a binding. It is followed by its name and if we want to give it a value by an = operator and an expression.
 
@@ -138,49 +136,55 @@ After a binding has been defined, its name can be used as an expression.
 A binding with a value is not stuck with that value, it can be changed. 
 If you ask for the value of an empty binding, you’ll get undefined.
 
-A single let statement may define multiple bindings. The definitions must be separated by commas.
+A single **let** statement may define multiple bindings. The definitions must be separated by commas.
 
-The words var and const can also be used to create bindings, in a way similar to let.
+The words **var** and **const** can also be used to create bindings, in a way similar to let.
 
 The word const stands for constant. It defines a constant binding which points at the same value for as long as it lives. This is useful for bindings that give a name to a value so that you can easily refer to it later.
 
 
 ### Binding Names
 
-Binding names can be any word, It can also contain digits as long as the first character isn’t a digit. A binding name may include $ or _ but no other punctuation or special characters.
+**Binding names** can be any word, It can also contain digits as long as the first character isn’t a digit. A binding name may include $ or _ but no other punctuation or special characters.
 
-Words with a special meaning such as let are keywords and the may not be used as binding names. 
+Words with a special meaning such as let are keywords and the may **not** be used as binding names. 
 
 ### Alle binding names:
-break case catch class const continue debugger default
+
+`break case catch class const continue debugger default
 delete do else enum export extends false finally for
 function if implements import interface in instanceof let
 new package private protected public return static super
-switch this throw true try typeof var void while with yield
+switch this throw true try typeof var void while with yield`
 
 
 ### The environment
 
-De verzameling bindings en hun waarden die bestaan op een bepaalde tijd heet: The Environment.
+De verzameling bindings en hun waarden die bestaan op een bepaalde tijd heet: **The Environment**.
 
 ### Functions
 
-Een function is een stukje van een script dat is verpakt in een waarde. Deze waarden kunnen toegevoegd worden om het verpakte script uit te voeren.
+Een **function** is een stukje van een script dat is verpakt in een waarde. Deze waarden kunnen toegevoegd worden om het verpakte script uit te voeren.
 
-Het uitvoeren van een function heet een function call: function myFunction(){…};
-De waarden binnen de haakjes van de functions zijn parameters en worden alleen binnen de functie gebruikt. Waarden die gegeven worden aan functions heten arguments.
+Het uitvoeren van een function heet een **function call**: 
+
+`function myFunction(){…};`
+
+De values binnen de haakjes van de functions zijn **parameters** en worden alleen binnen de functie gebruikt. Waarden die gegeven worden aan functions heten **arguments**.
 
 De prompt function wordt vrijwel nooit gebruikt omdat je geen controle hebt over styling. 
 
-###Console.log function
+### Console.log function
 
-Met de console.log(); functie worden de argumenten binnen de haakjes als tekst-output gezet in de web-console. 
+`console.log();`
+
+Met deze functie worden de argumenten binnen de haakjes als tekst-output gezet in de web-console. 
 
 ### Return values
 
-Het laten zien van een “dialog box” of het schrijven van text naar een scherm is een side effect. Veel functies zijn bruikbaar door hun side-effects. Functions kunnen ook values produceren.
+Het laten zien van een “dialog box” of het schrijven van text naar een scherm is een **side effect**. Veel functies zijn bruikbaar door hun side-effects. Functions kunnen ook values produceren.
 
-Wanneer een function een value produceert, wordt dit gedaan door de keyword: return.  Alles wat een waarde produceert is een expression in JS, wat betekent dat function calls gebruikt kunnen worden binnen grotere expressions.
+Wanneer een function een value produceert, wordt dit gedaan door het keyword: `return`.  Alles wat een waarde produceert is een expression in JS, wat betekent dat function calls gebruikt kunnen worden binnen grotere expressions.
 
 ### Control Flow
 
@@ -188,27 +192,27 @@ Statements in een script worden uitgevoerd van boven naar beneden.
 
 ### Conditional execution
 
-Niet alle scripts voeren van boven naar beneden uit. Met het if keyword in JS kan een situatie beschreven worden waarin een stuk code wel of niet uitgevoerd wordt. Dus stuk code wordt uitgevoerd alleen als er aan de opgegeven conditie wordt voldaan.
+Niet alle scripts voeren van boven naar beneden uit. Met het `if` keyword in JS kan een situatie beschreven worden waarin een stuk code wel of niet uitgevoerd wordt. Dus een stuk code wordt uitgevoerd, alleen als er aan de opgegeven conditie wordt voldaan.
 
-De Number.isNaN function is een standaard JS functie die alleen true returnt als het argument dat gegeven NaN is. Dus wanneer een string wordt gegeven aan deze functie wordt false gereturnd. 
+De `Number.isNaN` function is een standaard JS functie die alleen true returnt als het argument dat gegeven NaN is. Dus wanneer een string wordt gegeven aan deze functie wordt false gereturnd. 
 
-De statement na de if is verpakt in {}. De curly brackets of braces kunnen gebruikt worden om een aantal statements te groeperen binnen een enkele statement, wat een block heet. 
+De statement na de `if` is verpakt in {}. De curly brackets of braces kunnen gebruikt worden om een aantal statements te groeperen binnen een enkele statement, wat een **block** heet. 
 
-Een if kan opgevolgd worden door een else if (meer dan twee conditionals) of door een else. 
+Een `if` kan opgevolgd worden door een `else if` (meer dan twee conditionals) of door een `else`. 
 
 ### While and Do Loops
 
-Een Loop wordt gebruikt om een stuk code een aantal keer te laten uitvoeren (een loop voert alle code binnen de {} meerdere keren uit!). 
+Een **Loop** wordt gebruikt om een stuk code een aantal keer te laten uitvoeren (een loop voert alle code binnen de {} **meerdere keren uit!**). 
 
-Een statement dat begint met het keyword while creëert een loop (while(…){…}) dat een stuk code blijft herhalen als de boolean binnen de () true is. 
+Een statement dat begint met het keyword `while` creëert een loop `while(…){…}` dat een stuk code blijft herhalen als de boolean binnen de () true is. 
 
-Een do loop zal altijd zijn body één keer uitvoeren, waarna de loop gaat testen of het moet stoppen na de eerste keer. Bijvoorbeeld:
+Een `do` loop zal altijd zijn body één keer uitvoeren, waarna de loop gaat testen of het moet stoppen na de eerste keer. Bijvoorbeeld:
 
-let yourName;
+`let yourName;
 do {
   yourName = prompt("Who are you?");
 } while (!yourName);
-console.log(yourName);
+console.log(yourName);`
 
 Dit voorbeeld forceert de gebruiker ervan om iets in te vullen door constant de vraag te herhalen tot de code input krijgt dat niet een lege string is. De ! operator zorgt ervoor dat een waarde naar een boolean wordt omgezet voordat de conditional gecontroleerd wordt en alle strings behalve “” zullen omgezet worden in true. 
 
@@ -218,22 +222,25 @@ Spaces of tabs en enters kunnen gebruikt worden om de code leesbaarder te maken.
 
 ### For Loops
 
-JS heeft ook for loops die korter geschreven zijn en vaak wat duidelijker in elkaar steken. 
+JS heeft ook `for` loops die korter geschreven zijn en vaak wat duidelijker in elkaar steken. 
 
-for (let number = 0; number <= 12; number = number + 2) {
+`for (let number = 0; number <= 12; number = number + 2) {
   console.log(number);
-}
+}`
 
-Tussen de haakjes van de for loop moeten er twee ; zitten. 
+Tussen de haakjes van de for loop moeten er twee `;` zitten. 
 
 ### Breakdown for loop
 
-Met for maak je een loop aan.
-Expression 1: (vaak) binding
-Expression 2: boolean die kijkt of de loop moet door blijven gaan.
-Expression 3: Update de state van de loop na elke iteratie. 
-Dus: for (let i = 0;		i < 3; 		i++)
-	   Binding		Boolean	Update
+1. Met for maak je een loop aan.
+2. Expression 1: (vaak) binding.  (var i = 0;)
+3. Expression 2: boolean die kijkt of de loop moet door blijven gaan.  (i<x;)
+4. Expression 3: Update de state van de loop na elke iteratie.  (i++)
+
+Dus:
+
+`for (let i = 0; i < 3; i++)`  
+
 
 ### Breaking Out of a Loop
 
