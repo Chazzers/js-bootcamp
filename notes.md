@@ -2,7 +2,17 @@
 
 ## Eloquent JavaScript aantekeningen
 
-*You can write notes for each chapter here*.
+### Inhoudsopgave
+1. [Values, Types, and Operators](#h1-values-types-and-operators)
+2. Program Structure
+3. Functions
+4. Data Structures: Objects and Arrays
+5. Higher-order Functions
+6. The Secret Life of Objects
+8. Bugs and Errors
+9. Regular Expressions
+10. Modules
+11. Asynchronous Programming
 
 ## H1: Values, Types, And Operators
 
