@@ -233,9 +233,9 @@ Tussen de haakjes van de for loop moeten er twee `;` zitten.
 ### Breakdown for loop
 
 1. Met for maak je een loop aan.
-2. Expression 1: (vaak) binding.  (var i = 0;)
-3. Expression 2: boolean die kijkt of de loop moet door blijven gaan.  (i<x;)
-4. Expression 3: Update de state van de loop na elke iteratie.  (i++)
+2. Expression 1: (vaak) binding.  `var i = 0;`
+3. Expression 2: boolean die kijkt of de loop moet door blijven gaan. `i < x;`
+4. Expression 3: Update de state van de loop na elke iteratie.  `i++`
 
 Dus:
 
@@ -244,20 +244,20 @@ Dus:
 
 ### Breaking Out of a Loop
 
-Wachten totdat de looping condition false wordt is niet de enige manier waarmee een loop gestopt kan worden. De statement break; kan ook de loop stoppen. Vaak wordt dit gedaan aan de hand van een if statement. 
+Wachten totdat de looping condition false wordt is niet de enige manier waarmee een loop gestopt kan worden. De statement `break;` kan ook de loop stoppen. Vaak wordt dit gedaan aan de hand van een `if` statement. 
 
-for (let current = 20; ; current = current + 1) {
+`for (let current = 20; ; current = current + 1) {
   if (current % 7 == 0) {
     console.log(current);
     break;
   }
-}
+}`
 
-Als de loop niet een conditional of break heeft zal wordt het een infinite loop. Hierdoor kan je computer crashen. 
+Als de loop niet een conditional of `break` heeft wordt het een infinite loop. Hierdoor kan je computer crashen. 
 
-Het continue keyword is hetzelfde als break, op de manier dat het de progressie van de loop beïnvloed. Het verschil is dat met continue uit de loop wordt gebroken en verder wordt gegaan met de volgende iteratie. Dus:
+Het `continue` keyword is hetzelfde als break, op de manier dat het de progressie van de loop beïnvloed. Het verschil is dat met `continue` uit de loop wordt gebroken en verder wordt gegaan met de volgende iteratie. Dus:
 
-var text = "";
+`var text = "";
 
 for (var i = 0; i < 10; i++) {
   if (i === 3) {
@@ -268,30 +268,31 @@ for (var i = 0; i < 10; i++) {
 
 console.log(text); 
 // expected output: "012456789"
+`
 
 ### Updating Bindings Succinctly (kort en bondig)
 
 Vooral tijdens het loopen, zal een programma vaak een binding moeten updaten om een waarde vast te houden gebaseerd op de vorige waarde van die binding.
 
-### JS Shortcut:
+**JS Shortcut:**
 
-	counter += 1; || counter *= 1; || counter -= 1; || counter /= 1;
-OF:	counter++; || counter--
+`counter += 1; || counter *= 1; || counter -= 1; || counter /= 1;
+Of: counter++; || counter--`
 
 ### Dispatching on a Value with Switch
 
 Het is niet ongebruikelijk voor een code om er zo uit te zien:
 
-if (x == "value1") action1();
+`if (x == "value1") action1();
 else if (x == "value2") action2();
 else if (x == "value3") action3();
-else defaultAction();
+else defaultAction();`
 
-Er is een keyword, switch, die ervoor bedoeld is om zo een expression er directer uit te laten zien.
+Er is een keyword, `switch`, die ervoor bedoeld is om zo een expression er directer uit te laten zien.
 
-Helaas ziet het er een beetje ongemakkelijk uit (komt van Java)— een ketting if statements kunnen er beter uit zien. Dit ziet er zo uit:
+Helaas ziet het er een beetje ongemakkelijk uit (komt van Java)— een reeks `if` statements kunnen er beter uit zien. Dit ziet er zo uit:
 
-switch (prompt("What is the weather like?")) {
+`switch (prompt("What is the weather like?")) {
   case "rainy":
     console.log("Remember to bring an umbrella.");
     break;
@@ -303,25 +304,33 @@ switch (prompt("What is the weather like?")) {
   default:
     console.log("Unknown weather type!");
     break;
-}
+}`
 
-Je kan zoveel case labels als je wilt binnen een switch-block zetten. Het programma zal beginnen met uitvoeren bij het label dat overeenkomt met de waarde die aan de switch gegeven is. De case zal uitgevoerd blijven worden, zelfs als andere labels erna worden aangeroepen, totdat het een break statement tegen komt. 
+Je kan zoveel `case` labels als je wilt binnen een **switch-block** zetten. Het programma zal beginnen met uitvoeren bij het label dat overeenkomt met de waarde die aan de `switch` gegeven is. De `case` zal uitgevoerd blijven worden, zelfs als andere labels erna worden aangeroepen, totdat het een `break` statement tegen komt. 
 
 ### Capitalization
 
-Binding names mogen geen spaties bevatten. Dit kan opgelost worden door camel casing te gebruiken: function myFunctionIsAwesome(){…} (elk woord met een hoofdletter behalve het eerste woord. 
+Binding names mogen geen spaties bevatten. Dit kan opgelost worden door camel casing te gebruiken: 
+
+`function myFunctionIsAwesome(){…}`
+
+(elk woord met een hoofdletter behalve het eerste woord) 
 
 ### Comments
 
 Om code duidelijker te maken voor lezers (of jezelf) kun je comments plaatsen op een regel: 
-//blablabla (voor één regel) of /**/ (voor meerdere regels).
+
+`//blablabla` (voor één regel)  
+**of**  
+`/**/` (voor meerdere regels).
+
 ## H3: Functions
 
 Functions zijn er om:
-Structuur te geven aan grotere scripts
-Repetitie te verminderen
-Namen te geven aan subscripts 
-Subscripts te scheiden van elkaar.
+* Structuur te geven aan grotere scripts
+* Repetitie te verminderen
+* Namen te geven aan subscripts 
+* Subscripts te scheiden van elkaar.
 
 
 ### Defining a function
