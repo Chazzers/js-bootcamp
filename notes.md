@@ -499,33 +499,33 @@ not in function
 in console.log 
 not in function  
 
-Dus:
-Computer ziet function greet(doet niks tot call)
-Computer ziet call greet();
-Computer gaat in greet kijken
-Ziet daar console.log();
-Gaat in console.log(); kijken
-Gaat console.log(); uitvoeren
-Gaat uit console.log(); binnen greet
-Gaat kijken of er nog iets anders in greet staat
-Er staat niks dus gaat uit greet
-Gaat uit de function 
-Ziet buiten de function na de greet(); call console.log();
-Kijkt binnen console.log();
-Voert console.log(); uit
-Gaat uit console.log();
+**Dus:**
+1. Computer ziet function greet(doet niks tot call)
+2. Computer ziet call greet();
+3. Computer gaat in greet kijken
+4. Ziet daar console.log();
+5. Gaat in console.log(); kijken
+6. Gaat console.log(); uitvoeren
+7. Gaat uit console.log(); binnen greet
+8. Gaat kijken of er nog iets anders in greet staat
+9. Er staat niks dus gaat uit greet
+10. Gaat uit de function 
+11. Ziet buiten de function na de greet(); call console.log();
+12. Kijkt binnen console.log();
+13. Voert console.log(); uit
+14. Gaat uit console.log();
 
 ### Optional Arguments
-
+~~~~javascript
 function square(x) { return x * x; }
 console.log(square(4, true, "hedgehog"));
 // → 16
-
+~~~~
 JS negeert extra argumenten voor parameters en aan parameters zonder value wordt automatisch undefined toegekend. 
 Voordeel: De functie kan aangeroepen worden met meer parameters dan argumenten of omgekeerd zonder een foutmelding.
 Nadeel: Parameters kunnen gemakkelijk vergeten worden zonder dat je het weet. 
-
-function minus(a, b) {
+~~~~javascript
+function minus(a, b) {
   if (b === undefined) return -a;
   else return a - b;
 }
@@ -534,9 +534,10 @@ console.log(minus(10));
 // → -10
 console.log(minus(10, 5));
 // → 5
+~~~~
 
 Als je een = operator na een parameter zet gevolgd door een expression, zal de waarde die gegeven is aan de parameter blijven bestaan bij de call als deze niet wordt aangeroepen. Als de parameter wordt aangeroepen dan wordt de waarde overschreven.
-
+~~~~javascript
 function power(base, exponent = 2) {
   let result = 1;
   for (let count = 0; count < exponent; count++) {
@@ -549,9 +550,9 @@ console.log(power(4));
 // → 16
 console.log(power(2, 6));
 // → 64
-
+~~~~
 ### Closure
-
+~~~~javascript
 function wrapValue(n) {
   let local = n;
   return () => local;
@@ -563,12 +564,12 @@ console.log(wrap1());
 // → 1
 console.log(wrap2());
 // → 2
-
+~~~~
 De closure is een verzameling van alle variabelen binnen de function scope wanneer de functie gemaakt wordt. In het voorbeeld hierboven wordt:
-De function wordt gedeclareerd
-Function wordt gebonden aan variable wrap1 met de parameter 1 en wordt gelijk gecalld
-De parameter n wordt 1, local wordt 1 en de waarde wordt gereturnd. 
-Doordat er bij de function niks wordt opgeteld zal de waarde de opgegeven waarde blijven van de function.
+1. De function wordt gedeclareerd
+2. Function wordt gebonden aan variable wrap1 met de parameter 1 en wordt gelijk gecalld
+3. De parameter n wordt 1, local wordt 1 en de waarde wordt gereturnd. 
+4. Doordat er bij de function niks wordt opgeteld zal de waarde de opgegeven waarde blijven van de function.
 
 
 ### Recursion
@@ -588,56 +589,68 @@ Side-effects geven niet per see een waarde mee wanneer ze gecalled worden.
 ### Data Sets
 
 JS heeft een manier om een lijst te maken van items dat heet: Array. Bijvoorbeeld:
-
+~~~~javascript
 let list = [‘item 1’, ‘item 2’, ‘item 3’];
-
+~~~~
 Als je een item als output in de console wilt kun je bijvoorbeeld doen:
-
+~~~~javascript
 console.log(list[1]);
 // item 1
-
+~~~~
 De Array begint met tellen vanaf 0.
 
 ### Properties
 
 Bijna alle JS values hebben een property. Wat voor property het is kan opgevraagd worden door:
 
-typeof:
+**typeof:**
+~~~~javascript
 typeof value; 
+~~~~
+Een **property** kan opgevraagd worden door:
 
-Een property kan opgevraagd worden door:
-
-Binnen een array:
+**Binnen een array:**
+~~~~javascript
 value[x];
-
-normale variabele:
+~~~~
+**normale variabele:**
+~~~~javascript
 value.x;
-
-Als je wilt weten hoeveel items een array heeft:
+~~~~
+**Als je wilt weten hoeveel items een array heeft:**
+~~~~javascript
 array.length;
-
+~~~~
 ### Methods
 
 Methods zijn properties met functions. zoals:
 
-toUpperCase-method
+**toUpperCase-method**
+~~~~javascript
 var ik = ‘ik’;
 ik.toUpperCase;
 //IK
+~~~~
 
-push-method (item bij array voegen)
+**push-method (item bij array voegen)**
+~~~~javascript
 let sequence = [1, 2, 3];
 sequence.push(4);
 sequence.push(5);
 console.log(sequence);
 // → [1, 2, 3, 4, 5]
+~~~~
 
-pop-method (laatst toegevoegde item verwijderen)
+**pop-method (laatst toegevoegde item verwijderen)**
+~~~~javascript
 sequence.pop();
+~~~~
+
 ### Objects
 
-Values van het type: object; zijn verzamelingen van properties. Een manier om een object te maken is:
+Values van het type: **object**; zijn verzamelingen van properties. Een manier om een object te maken is:
 
+~~~~javascript
 let day1 = {
   squirrel: false,
   events: ["work", "touched tree", "pizza", "running"]
@@ -649,45 +662,53 @@ console.log(day1.wolf);
 day1.wolf = false;
 console.log(day1.wolf);
 // → false
+~~~~
 
 Binnen de accolades zit een lijst van properties die zijn gescheiden met komma’s. Elke property heeft een naam die gevolgd wordt door een : en een value. Properties waarvan de namen of nummers niet valide zijn moeten gequote worden:
 
+~~~~javascript
 let descriptions = {
   work: "Went to work",
   "touched tree": "Touched a tree"
 };
+~~~~
 
 Accolades hebben dus twee betekenissen in JS namelijk:
 
-Aan het einde van een statement, beginnen ze met een block van statements
-Elke andere positie beschrijven ze een object.
+Aan het einde van een statement, beginnen ze met een **block** van statements
+Elke andere positie beschrijven ze een **object**.
 
-Het lezen van een property dat niet bestaat zal undefined geven.
+Het lezen van een property dat niet bestaat zal `undefined` geven.
 
-Het is mogelijk om een waarde aan een property te geven d.m.v. de = operator. Dit zal:
+Het is mogelijk om een waarde aan een property te geven d.m.v. de `=` operator. Dit zal:
 Als het een waarde heeft de waarde van de property vervangen
 Als het geen waarde heeft een nieuwe property aanmaken binnen het object.
 
-De ‘delete’ operator kan gebruikt worden om een object property te verwijderen.
+De `delete` operator kan gebruikt worden om een **object property** te verwijderen.
 
-De ‘in’ operator zal wanneer het op een string en een object uitgevoerd wordt, je vertellen of dat object de property met de opgevraagde naam bevat. Als een property undefined is bestaat het wel en als het gedelete wordt wordt hij verwijdert.
+De `in` operator zal wanneer het op een **string** en een **object** uitgevoerd wordt, je vertellen of dat object de property met de opgevraagde naam bevat. Als een property `undefined` is bestaat het wel en als het gedelete wordt wordt hij verwijdert.
 
-Als je erachter wilt komen wat voor properties een object heeft kan de Object.keys function gebruikt worden. 
+Als je erachter wilt komen wat voor **properties** een object heeft kan de `Object.keys` function gebruikt worden. 
 
+~~~~javascript
 console.log(Object.keys({x: 0, y: 0, z: 2}));
 // → ["x", "y", “z"]
+~~~~
 
-Je kan bijvoorbeeld ook de Object.assign function gebruiken die alle properties van één object naar de ander kopieert. 
+Je kan bijvoorbeeld ook de `Object.assign` function gebruiken die alle properties van één object naar de ander kopieert. 
 
+~~~~javascript
 let objectA = {a: 1, b: 2};
 Object.assign(objectA, {b: 3, c: 4});
 console.log(objectA);
 // → {a: 1, b: 3, c: 4}
+~~~~
 
 Arrays, hierna, zijn een soort object gespecialiseerd voor het opslaan van reeksen van dingen. 
 
 Als binnen een object een array wordt gemaakt zal de typeof van dat array, object blijven. 
 
+~~~~javascript
 let journal = [
   {events: ["work", "touched tree", "pizza",
             "running", "television"],
@@ -700,17 +721,19 @@ let journal = [
    squirrel: true},
   /* and so on... */
 ];
+~~~~
 
 ### Mutability
 
 Object values kunnen aangepast worden. 
 
-Strings, numbers en booleans zijn immutable— het is onmogelijk om de waarde van de types te veranderen. 
+Strings, numbers en booleans zijn **immutable**— het is onmogelijk om de waarde van de types te veranderen. 
 
 Van objects kunnen de properties verandert worden, waardoor één object value verschillende content heeft op verschillende tijden. 
 
 Wanneer twee bindings hetzelfde object vastpakken zullen de waardes van deze twee objecten hetzelfde zijn. De twee bindings hebben dus dezelfde identiteit. Als de waardes tussen twee objecten hetzelfde zijn en doet een boolean of de objecten aan elkaar gelijk staan zal deze false geven, omdat het ene object niet het andere object is. Als de values met elkaar vergeleken worden zal de boolean true zijn.
 
+~~~~javascript
 let object1 = {value: 10};
 let object2 = object1;
 let object3 = {value: 10};
@@ -725,40 +748,47 @@ console.log(object2.value);
 // → 15
 console.log(object3.value);
 // → 10
+~~~~
 
 Bindings kunnen ook veranderen of constant zijn, maar dit staat los van de manier waarop hun waardes zich gedragen. Als de const binding wordt gebruikt kan de waarde van deze binding niet verandert worden behalve binnen een object of een array. 
 
+~~~~javascript
 const score = {visitors: 0, home: 0};
 // This is okay
 score.visitors = 1;
 // This isn't allowed
 score = {visitors: 1, home: 1};
 //met een let binding mag dit wel
+~~~~
 
-Wanneer objecten vergeleken worden met == zal de identity vergeleken worden: het zal true geven alleen als de objects precies dezelfde value zijn. Als verschillende objecten met elkaar vergelijken worden zal false gegeven worden.
+Wanneer objecten vergeleken worden met `==` zal de identity vergeleken worden: het zal true geven alleen als de objects precies dezelfde value zijn. Als verschillende objecten met elkaar vergelijken worden zal false gegeven worden.
 
 ### The Lycanthrope’s Log
 
+~~~~javascript
 let journal = [];
 
 function addEntry(events, squirrel) {
   journal.push({events, squirrel});
 }
+~~~~
 
 Als een property niet gevolgd wordt door een value zullen de value en de property gelijk zijn aan elkaar. Dus in dit geval is de value van de property events ook events.
 
+~~~~javascript
 addEntry(["work", "touched tree", "pizza", "running",
           "television"], false);
 addEntry(["work", "ice cream", "cauliflower", "lasagna",
           "touched tree", "brushed teeth"], false);
 addEntry(["weekend", "cycling", "break", "peanuts",
           "beer"], true);
+~~~~
 
 Correlation is een meting van afhankelijkheid tussen twee statische variabelen. Een statistische variabele is niet hetzelfde als een programmeer variabele. In statistieken heb je normaal gesproken een aantal metingen en elke variabele wordt gemeten voor elke meting. De correlation tussen variabelen wordt expressed als een waarde dat tussen -1 en 1 zit. -1 0 en 1 betekenen:
 
--1: De variabelen zijn perfect gerelateerd aan elkaar, maar zijn precies het omgekeerde.
-0: De variabelen zijn niet gerelateerd aan elkaar, dus zero correlation.
-1: De variabelen zijn perfect gerelateerd aan elkaar. 
+* -1: De variabelen zijn perfect gerelateerd aan elkaar, maar zijn precies het omgekeerde.
+* 0: De variabelen zijn niet gerelateerd aan elkaar, dus zero correlation.
+* 1: De variabelen zijn perfect gerelateerd aan elkaar. 
 
 ### Computing Correlation
 
@@ -766,17 +796,21 @@ Arrays hebben een includes method die kijkt of een gegeven waarde bestaat binnen
 
 ### Array Loops
 
+~~~~javascript
 Een array loop:
 for (let i = 0; i < JOURNAL.length; i++) {
   let entry = JOURNAL[i];
   // Do something with entry
 }
+~~~~
 
 Er is een makkelijkere manier om deze loop te schrijven in modern JS:
 
+~~~~javascript
 for (let entry of JOURNAL) {
   console.log(`${entry.events.length} events.`);
 }
+~~~~
 
 $ = een identifier in JS, wat betekent dat ze een object identificeren op dezelfde manier dat een naam dat doet.
 
@@ -786,6 +820,7 @@ Wanneer een for loop er zo uit ziet, met het keyword ‘of’ na een declaratie 
 
 Met de array methods: shift en unshift kun je aan het begin van een array items toevoegen of verwijderen.
 
+~~~~javascript
 let todoList = [];
 function remember(task) {
   todoList.push(task);
@@ -796,8 +831,11 @@ function getTask() {
 function rememberUrgently(task) {
   todoList.unshift(task);
 }
+~~~~
 
-Als een task toegevoegd moet worden, kun je remember(‘ietsDoen’); aanroepen waardoor een taak wordt toegevoegd aan het einde van de array. Als je een taak gaat uitvoeren kun je getTask(); aanroepen waardoor de eerste taak uit de array wordt gehaald. Als je een taak heb die bovenaan je todo-list moet staan kun je rememberUrgently(ietsBelangrijksDoen); uitvoeren die dan een taak toevoegt aan het begin van de takenlijst (array).
+* Als een task toegevoegd moet worden, kun je `remember(‘ietsDoen’);` aanroepen waardoor een taak wordt toegevoegd aan het einde van de array. 
+* Als je een taak gaat uitvoeren kun je `getTask();` aanroepen waardoor de eerste taak uit de array wordt gehaald. 
+* Als je een taak heb die bovenaan je todo-list moet staan kun je `rememberUrgently(ietsBelangrijksDoen);` uitvoeren die dan een taak toevoegt aan het begin van de takenlijst (array).
 
 ## H5: Higher-order Functions
 ## H6: The Secret Life of Objects
