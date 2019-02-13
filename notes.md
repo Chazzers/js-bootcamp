@@ -7,7 +7,7 @@
 2. [Program Structure](#h2-program-structure)
 3. [Functions](#h3-functions)
 4. [Data Structures: Objects and Arrays](#h4-data-structures-objects-and-arrays)
-5. [Higher-order Functions](#h5-higher---order-functions)
+5. [Higher-order Functions](#h5-higher-order-functions)
 6. [The Secret Life of Objects](#h6-the-secret-life-of-objects)
 8. [Bugs and Errors](#h8-bugs-and-errors)
 9. [Regular Expressions](#h9-regular-expressions)
@@ -466,7 +466,9 @@ const power = (base, exponent) => {
 De pijl komt na de parameters en **vóór** de function body. 
 Dus:
 
+~~~~javascript
 (parameter1, parameter2) => {body}
+~~~~
 
 Als er maar **één** parameter is kunnen de **()** weg die de parameters wrappen.  
 Als de body maar **één** expression heeft kunnen de {} en return ook weg.
@@ -479,21 +481,23 @@ const square2 = x => x * x;
 
 ### The Call Stack
 
+~~~~javascript
 function greet(who) {
   console.log("Hello " + who);
 }
 greet("Harry");
 console.log(“Bye");
+~~~~
 
 **Doet dit:**
 
->not in function
->in greet
->in console.log
->in greet
->not in function
->in console.log
->not in function
+not in function  
+in greet  
+in console.log  
+in greet  
+not in function  
+in console.log 
+not in function  
 
 Dus:
 Computer ziet function greet(doet niks tot call)
