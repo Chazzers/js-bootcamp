@@ -833,11 +833,244 @@ function rememberUrgently(task) {
 }
 ~~~~
 
-* Als een task toegevoegd moet worden, kun je `remember(‘ietsDoen’);` aanroepen waardoor een taak wordt toegevoegd aan het einde van de array. 
+* Als een task toegevoegd moet worden, kun je `remember(‘Iets doen’);` aanroepen waardoor een taak wordt toegevoegd aan het einde van de array. 
 * Als je een taak gaat uitvoeren kun je `getTask();` aanroepen waardoor de eerste taak uit de array wordt gehaald. 
-* Als je een taak heb die bovenaan je todo-list moet staan kun je `rememberUrgently(ietsBelangrijksDoen);` uitvoeren die dan een taak toevoegt aan het begin van de takenlijst (array).
+* Als je een taak heb die bovenaan je todo-list moet staan kun je `rememberUrgently('Iets belangrijks doen');` uitvoeren die dan een taak toevoegt aan het begin van de takenlijst (array).
+
+Voor als je op zoek bent naar een specifieke waarde, hebben arrays de method `indexOf`. De methode zoekt dan door de hele array naar de eerste waarde die overeenkomt met de opgegeven waarde. Als je wilt dat er achterstevoren gezocht wordt, kun je de methode `lastIndexOf` gebruiken.
+
+~~~~javascript
+console.log([1, 2, 3, 2, 1].indexOf(2));
+// → 1 (Want de array telt vanaf 0 en de tweede item komt overeen met de opgegeven waarde)
+console.log([1, 2, 3, 2, 1].lastIndexOf(2));
+// → 3 (Want de array telt vanaf 0 en de vierde item komt overeen met de opgegeven waarde)
+~~~~
+
+Beide indexOf en lastIndexOf kunnen een tweede argument meegegeven krijgen die bepaald waar de method moet beginnen met zoeken. 
+
+Een ander fundamentele array method is `slice`, dat begin en eind indexen neemt en een array returnt met **alleen** de elementen die tussen deze indexen zitten. De eerste index is **inclusief** in de return en de laatste is **exclusief**.
+
+~~~~javascript
+console.log([0, 1, 2, 3, 4].slice(2, 4));
+// → [2, 3]
+console.log([0, 1, 2, 3, 4].slice(2));
+// → [2, 3, 4]
+~~~~
+
+Wanneer de eind index niet gegeven is, zal `slice` alle elementen na de start index nemen. Je kan ook helemaal geen index geven waardoor de hele array gekopieerd wordt. 
+
+De `concat` methode kan gebruikt worden om arrays aan elkaar te plakken, waardoor er een nieuwe array ontstaat (lijkt op + operator)
+
+Het volgende voorbeeld laat beide concat en slice zien. Het neemt een array en een index en returnt een nieuwe array dat een kopie is van de originele array met de opgegeven index verwijdert. 
+
+~~~~javascript
+function remove(array, index) {
+  return array.slice(0, index)
+    .concat(array.slice(index + 1));
+}
+console.log(remove(["a", "b", "c", "d", "e"], 2));
+// → ["a", "b", "d", "e"]
+~~~~
+
+Als je concat een argument geeft dat geen array is, zal die waarde toegevoegd worden aan de nieuwe array alsof het een one-element array was. 
+
+### Strings and their Properties
+
+Properties zoals `length` en `toUpperCase` worden gelezen als string values. Maar als er een nieuwe property aan toegevoegd wordt, blijft deze niet plakken.
+
+~~~~javascript
+let kim = "Kim";
+kim.age = 88;
+console.log(kim.age);
+// → undefined
+~~~~
+
+**Dus**: Values van het type string, number en boolean zijn geen objects. De properties hiervan kunnen niet verandert worden. Wel hebben deze values methods. Een paar handige zijn `slice` en `indexOf`, die hetzelfde zijn en werken als bij arrays. 
+
+~~~~javascript
+console.log("coconuts".slice(4, 7));
+// → nut
+console.log("coconut".indexOf("u"));
+// → 5
+~~~~
+
+Een verschil met de method `indexOf` tussen string en array is dat de `indexOf` van een string kan zoeken naar een string die meer dan één character heeft, terwijl dezelfde method bij een array alleen kijkt naar één element.
+
+~~~~javascript
+console.log("one two three".indexOf("ee"));
+// → 11
+~~~~
+
+De `trim` method verwijdert whitespace (spaties, nieuwe regels, tabs en nog meer gelijksoortige characters) van begin tot het einde van de string.
+
+~~~~javascript
+console.log("  okay \n ".trim());
+// → okay
+~~~~
+
+De zeroPad function bestaat ook als method. Het heet padStart en neemt de gewenste length en padding character als arguments.
+
+~~~~javascript
+console.log(String(6).padStart(3, "0"));
+// → 006
+~~~~
+
+Een string kan opgesplitst worden elke keer als een string gevonden wordt met `split` en kan bij elkaar gevoegd worden met `join`.
+
+~~~~javascript
+let sentence = "Secretarybirds specialize in stomping";
+let words = sentence.split(" ");
+console.log(words);
+// → ["Secretarybirds", "specialize", "in", "stomping"]
+console.log(words.join(". "));
+// → Secretarybirds. specialize. in. stomping
+~~~~
+
+
+Een string kan herhaald worden met de `repeat` method, die een nieuwe string aanmaakt met daarin meerdere kopieën van de originele string, achterelkaar geplakt. 
+
+~~~~javascript
+console.log("LA".repeat(3));
+// → LALALA
+~~~~
+
+De `length` property van strings kan zo getoond worden:
+
+~~~~javascript
+let string = "abc";
+console.log(string.length);
+// → 3
+console.log(string[1]);
+// → b
+~~~~
+
+### Rest Parameters
+
+Math.max function berekent het maximum van alle argumenten die meegegeven worden. Om zo een functie te scrhijven zet je 3 ... vóór de laatste parameter.
+
+~~~~javascript
+function max(...numbers) {
+  let result = -Infinity;
+  for (let number of numbers) {
+    if (number > result) result = number;
+  }
+  return result;
+}
+console.log(max(4, 1, 9, -2));
+// → 9
+~~~~
+
+Wanneer zo een functie wordt aangeroepen, zal de _rest parameter_ gebonden worden aan een array die alle opvolgende argumenten bevatten. Als er parameters voor staan, zijn de waardes van deze parameters niet  een onderdeel van de array. Als er alleen één parameter is, zal het alle argumenten vasthouden.
+
+Je kan een soortgelijke _three-dot notation_ gebruiken om een functie aan te roepen met een array van argumenten.
+
+~~~~javascript
+let numbers = [5, 1, 7];
+console.log(max(...numbers));
+// → 7
+~~~~
+
+Dit spreidt de array uit de function call in, waardoor de elementen doorgegeven worden als gescheiden argumenten.
+
+Square bracket array notatie zorgt er ook voor dat een _three dot operator_ een andere array spreid in de nieuwe array.
+
+~~~~javascript
+let words = ["never", "fully"];
+console.log(["will", ...words, "understand"]);
+// → ["will", "never", "fully", "understand"]
+~~~~
+
+### The Math Object
+
+`Math` is een verzameling van een hoop nummer-gerelateerde utility functions. Math geeft een _namespace_ zodat al deze functions en values niet global bindings hoeven te zijn. Omdat JS deze namen al in gebruik heeft, hoef je als programmeur je minder zorgen te maken dat je ze gebruikt als binding names.
+
+Math heeft vrijwel alles wat je met wiskunde geleerd hebt. Deze wiskundige dingen hoef je dus niet zelf te programmeren maar hoef je alleen aan te roepen. Hier onder wat voorbeelden:
+
+
+`cos` (cosinus), `sin` (sinus) en `tan` (tangent). Of alle tegenovergestelde van deze 3: `acos`, `asin` en `atan`.
+
+~~~~javascript
+function randomPointOnCircle(radius) {
+  let angle = Math.random() * 2 * Math.PI;
+  return {x: radius * Math.cos(angle),
+          y: radius * Math.sin(angle)};
+}
+console.log(randomPointOnCircle(2));
+// → {x: 0.3667, y: 1.966}
+~~~~
+
+Math.random is een function die een nieuw random nummer genereert tussen 0 en 1.
+
+~~~~javascript
+console.log(Math.random());
+// → 0.36993729369714856
+console.log(Math.random());
+// → 0.727367032552138
+console.log(Math.random());
+// → 0.40180766698904335
+~~~~
+
+Als je een heel getal wilt vanuit een `Math.random` kun je vóór `Math.random`, `Math.floor` (rond af naar beneden) zetten.
+
+~~~~javascript
+console.log(Math.floor(Math.random() * 10));
+// → 2
+~~~~
+
+Andere `Math` functies zijn: `Math.ceil` (rond af naar boven), `Math.round` (rond af naar meest dichtsbijzijnde hele nummer) en `Math.abs` (neemt de absolute waarde van een nummer (negatieve nummers worden uitgesloten en positieve blijven staan).
+
+### Destructuring
+
+Als je bindings wilt hebben voor de **elementen** van de array kun je dit gebruiken:
+
+~~~~javascript
+function phi([n00, n01, n10, n11]) {
+  return (n11 * n00 - n10 * n01) /
+    Math.sqrt((n10 + n11) * (n00 + n01) *
+              (n01 + n11) * (n00 + n10));
+}
+~~~~
+
+Als je weet dat de waarde die je wilt binden een array is, kun je square brackets `[]` gebruiken om binnen de array te _kijken_ en de inhoud te binden. Dit heet destructureren.
+
+Je kan hetzelfde doen met objects, maar in plaats van `[]` gebruik je `{}`.
+
+~~~~javascript
+let {name} = {name: "Faraji", age: 23};
+console.log(name);
+// → Faraji
+~~~~
+
+Het destructureren van een `null` of `undefined` geeft een error.
+
+### JSON
+
+Omdat properties alleen hun waarde vastgrijpen, in plaats van bevatten, worden objects en arrays opgeslagen in het geheugen van de computer, als reeksen van bits die de _addresses_ vasthouden -de plek in het geheugen- van de inhoud. Dus een zowel nested array als de _container array_ neemt een stukje geheugen in beslag met een nummer die aan geeft welke array in welke zit.
+
+Als je data in een bestand wilt opslaan voor later of het naar een andere computer wilt sturen, moet je op een een of andere manier deze _adresses_ omzetten naar een beschrijving die verstuurd of opgeslagen kan worden. 
+
+De beste manier om dit te doen is om de data te _serializen_. Dit betekent dat dat de data omgezet wordt in een platte beschrijving. Een populaire serialization format is JSON (JavaScript Object Notation). Het wordt gebruikt als een data opslag en communicatie format op het Web.
+
+JSON ziet er hetzelfde uit qua het schrijven van arrays en objects als JS, met een paar limitaties. Alle property namen moeten omringt zijn door double quotes en alleen simpele data expressions zijn toegestaan-geen function calls, bindings of iets dat berekeningen bevat. Comments zijn ook niet toegestaan. 
+
+Voorbeeld:
+
+~~~~javascript
+{
+  "squirrel": false,
+  "events": ["work", "touched tree", "pizza", "running"]
+}
+~~~~
+
+JS geeft ons de functions `JSON.stringify` en `JSON.parse` om data om te zetten naar en vanaf deze format. 
+
+* `JSON.stringify` pakt een JS value en returnt een JSON-encoded string.
+* `JSON.parse` pakt een string en zet het om naar de waarde dat het codeert.
+
 
 ## H5: Higher-order Functions
+
+
 ## H6: The Secret Life of Objects
 ## H8: Bugs and Errors
 ## H9: Regular Expressions
