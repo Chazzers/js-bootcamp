@@ -489,7 +489,7 @@ function greet(who) {
   console.log("Hello " + who);
 }
 greet("Harry");
-console.log(“Bye");
+console.log("Bye");
 ```
 
 **Doet dit:**
@@ -503,20 +503,20 @@ in console.log
 not in function
 
 **Dus:**
-1\. Computer ziet function greet(doet niks tot call)
-2\. Computer ziet call greet();
-3\. Computer gaat in greet kijken
-4\. Ziet daar console.log();
-5\. Gaat in console.log(); kijken
-6\. Gaat console.log(); uitvoeren
-7\. Gaat uit console.log(); binnen greet
-8\. Gaat kijken of er nog iets anders in greet staat
-9\. Er staat niks dus gaat uit greet
-10\. Gaat uit de function
-11\. Ziet buiten de function na de greet(); call console.log();
-12\. Kijkt binnen console.log();
-13\. Voert console.log(); uit
-14\. Gaat uit console.log();
+1. Computer ziet function greet(doet niks tot call)
+2. Computer ziet call greet();
+3. Computer gaat in greet kijken
+4. Ziet daar console.log();
+5. Gaat in console.log(); kijken
+6. Gaat console.log(); uitvoeren
+7. Gaat uit console.log(); binnen greet
+8. Gaat kijken of er nog iets anders in greet staat
+9. Er staat niks dus gaat uit greet
+10. Gaat uit de function
+11. Ziet buiten de function na de greet(); call console.log();
+12. Kijkt binnen console.log();
+13. Voert console.log(); uit
+14. Gaat uit console.log();
 
 ### Optional Arguments
 
@@ -576,10 +576,10 @@ console.log(wrap2());
 ```
 
 De closure is een verzameling van alle variabelen binnen de function scope wanneer de functie gemaakt wordt. In het voorbeeld hierboven wordt:
-1\. De function wordt gedeclareerd
-2\. Function wordt gebonden aan variable wrap1 met de parameter 1 en wordt gelijk gecalld
-3\. De parameter n wordt 1, local wordt 1 en de waarde wordt gereturnd.
-4\. Doordat er bij de function niks wordt opgeteld zal de waarde de opgegeven waarde blijven van de function.
+1. De function wordt gedeclareerd
+2. Function wordt gebonden aan variable wrap1 met de parameter 1 en wordt gelijk gecalld
+3. De parameter n wordt 1, local wordt 1 en de waarde wordt gereturnd.
+4. Doordat er bij de function niks wordt opgeteld zal de waarde de opgegeven waarde blijven van de function.
 
 ### Recursion
 
@@ -1612,7 +1612,7 @@ Interfaces bestaan vooral uit methods, maar er kunnen ook properties die geen fu
 
 Het is niet nodig voor een object om een property te berekenen en op te slaan in de instance. Properties die direct gebruikt worden kunnen een _method call_ verbergen. Zulke methods heten **getters** en worden zo geschreven: `get`. Deze `get` zet je voor de **method naam** in een object expression.
 
-~~~~javascript
+```javascript
 let varyingSize = {
   get size() {
     return Math.floor(Math.random() * 100);
@@ -1623,7 +1623,7 @@ console.log(varyingSize.size);
 // → 73
 console.log(varyingSize.size);
 // → 49
-~~~~
+```
 
 Wanneer iemand van deze `size` property leest, zal de method die erbij hoort aangeroepen worden. Je kan hetzelfde doen als een property geschreven wordt met een setter.
 
@@ -1684,7 +1684,7 @@ console.log(matrix.get(2, 3));
 // → 3,2
 ```
 
-Door het woord `extends` te gebruiken zorg je ervoor dat deze `class` niet direct gebasseerd moet worden op de standaard `Object` maar op een ander soort class. Dit heet de **superclass**. De class die ervan wordt afgeleid heet de **subclass*.
+Door het woord `extends` te gebruiken zorg je ervoor dat deze `class` niet direct gebasseerd moet worden op de standaard `Object` maar op een ander soort class. Dit heet de **superclass**. De class die ervan wordt afgeleid heet de \*_subclass_.
 
 Om een `SymmetricMatrix` instance te starten, roept de constructor zijn superclass constructor aan door het `super` keyword.
 
@@ -1700,9 +1700,478 @@ Het is soms handig om te weten of een object komt van een specifieke class, wat 
 
 ## H8: Bugs and Errors
 
+### Language
 
+Omdat JS als taal niet streng is kan het soms moeilijk zijn om bugs te vinden.
+
+Alleen als de JS grammatica van het script niet klopt gaat de computer zeuren, maar anders vaak niet.
+
+Het zoeken van fouten in de coden heet **debugging**.
+
+### Strict Mode
+
+JS kan strenger gemaakt worden door **strict mode** aan te zetten. Dit kan gedaan worden door bovenaan het bestand of een function body `"use strict";` te zetten.
+
+Wat strict mode doet:
+
+-   Binding name zonder binding (bijv: `let`) geeft een foutmelding. Als de binding al bestaat als global binding zal deze global binding overschreven worden.
+-   Als een method of constructor incorrect aangeroepen wordt wordt er een foutmelding gegeven.
+-   Het laat het niet toe dat functions meerdere parameters met dezelfde namen heeft en verwijdert sommige problematische taal in zijn geheel.
+
+Dus is strict mode erg handig!
+
+### Types
+
+Door type conversion is het soms lastig om te weten wat JS doet met een bepaalde binding. JS probeert namelijk om bepaalde type waardes om te zetten naar wat de taal verwacht wat het type is (type conversion) waardoor je errors kan krijgen.
+
+Om sommige fouten te voorkomen is het handig als je uitschrijft welke binding welk type zou moeten zijn en wat het programma in zijn geheel moet doen. Dit kan je doen in je code met **comments**. Bijvoorbeeld zo:
+
+```javascript
+// (VillageState, Array) → {direction: string, memory: Array}
+function goalOrientedRobot(state, memory) {
+  // ...
+}
+```
+
+### Testing
+
+Het is handig om test programma's te schrijven om te kijken of individuele code de gewenste taak volbrengt. Een voorbeeld van een methode die getest wordt:
+
+```javascript
+function test(label, body) {
+  if (!body()) console.log(`Failed: ${label}`);
+}
+
+test("convert Latin text to uppercase", () => {
+  return "hello".toUpperCase() == "HELLO";
+});
+test("convert Greek text to uppercase", () => {
+  return "Χαίρετε".toUpperCase() == "ΧΑΊΡΕΤΕ";
+});
+test("don't convert case-less characters", () => {
+  return "مرحبا".toUpperCase() == "مرحبا";
+});
+```
+
+Er is software die helpt bij het bouwen en testen van code, deze heten **test runners**.
+
+### Debugging
+
+Je kan proberen om met `console.log()` elke binding of function te testen en bij de console kijken of het wel doet wat het moet doen.
+
+Je kan ook als je `console.log()` gebruikt kijken bij de debugger van de browser. Je kan in de browser **breakpoints** instellen, die de code stoppen op de regel van de breakpoint, waarna je de waarde van bindings op dat moment kan inspecteren.
+
+Je kan ook in je code breakpoints instellen met een `debugger` statement in je code.
+
+### Error Propagation
+
+Als een programma gebruikt gaat worden door andere mensen, kan het soms input krijgen die het niet kan verwerken, waardoor de code crasht.
+
+Soms is het dan handig om de code door te laten draaien en de input te negeren. In andere gevallen is het beter als je de gebruiker laat weten wat er mis is gegaan en de code daarna te laten stoppen met draaien. De code moet echter wel altijd wat doen met het probleem.
+
+Soms is het niet handig om een 'special value' te returnen aan de gebruiker als hij wat fout doet. Als de function bijvoorbeeld al elke soort value kan returnen, wat dan? Je kan bijvoorbeeld het resultaat in een object wrappen die dan kan weergeven of iets succesvol is of niet.
+
+### Exceptions
+
+Wanneer er een fout optreed wil je het liefst dat de code gelijk de fout oplost. Dit heet **exception handling**.
+
+Exceptions zijn een mechanisme dat het mogelijk maakt voor code om een uitzondering uit te voeren. Een exception maken kan soms lijken op een super return van een function: de code springt uit de huidige function en zijn callers, helemaal terug naar de eerste call die de huidige execution start. Dit heet **unwinding the stack**. Een exception gaat weg uit de stack en gooit alle call contexten weg die het tegenkomt.
+
+Je hoeft niet meteen bij een fout gelijk uit de hele code te springen. Je kan ook 'obstakels' plaatsen waar de code dan naar toe moet springen.
+
+Bijvoorbeeld zo:
+
+```javascript
+function promptDirection(question) {
+  let result = prompt(question);
+  if (result.toLowerCase() == "left") return "L";
+  if (result.toLowerCase() == "right") return "R";
+  throw new Error("Invalid direction: " + result);
+}
+
+function look() {
+  if (promptDirection("Which way?") == "L") {
+    return "a house";
+  } else {
+    return "two angry bears";
+  }
+}
+
+try {
+  console.log("You see", look());
+} catch (error) {
+  console.log("Something went wrong: " + error);
+}
+```
+
+Het keyword `throw` wordt gebruikt om een exception aan te maken. Een obstakel kan gemaakt worden met het keyword `try` gevolgd door `catch` (lijkt op `if/else`). Wanneer de `try` een exception aanmaakt, zal de `catch` geëvalueerd worden, met de naam tussen haakjes die gebonden is aan de exception value. Nadat `catch` klaar is of `try` het doet zonder problemen, zal het programma onder de `try/catch` statement verder gaan met uitvoeren.
+
+Een `Error` constructor is een standaard JS constructor dat een object aanmaakt met een `message` property. Instances van deze constructor verzamelen ook informatie over de call stack die bestaat als de exception gemaakt wordt, deze heet **stack trace**. Deze informatie wordt opgeslagen in de `stack` property en vertelt ons de function waar het probleem zich heeft voorgedaan en welke functions de failing call hebben gemaakt.
+
+Het grote voordeel van exceptions is dat de error-handling code alleen nodig is bij het punt waar de fout zich bevindt. De functions ertussen kunnen dit vergeten.
+
+### Cleaning Up After Exceptions
+
+Het kan zo zijn dat een code met exceptions sommige stappen skipt die noodzakelijk zijn bij het proces.
+
+Hieronder een bank code die eerst geld verplaatst maar bij een uitzondering het proces stopt waardoor het geld niet doorgestuurd wordt naar een andere gebruiker en het geld dus verdwijnt.
+
+```javascript
+const accounts = {
+  a: 100,
+  b: 0,
+  c: 20
+};
+
+function getAccount() {
+  let accountName = prompt("Enter an account name");
+  if (!accounts.hasOwnProperty(accountName)) {
+    throw new Error(`No such account: ${accountName}`);
+  }
+  return accountName;
+}
+
+function transfer(from, amount) {
+  if (accounts[from] < amount) return;
+  accounts[from] -= amount;
+  accounts[getAccount()] += amount;
+}
+```
+
+Het is handig om code te schrijven met zo min mogelijk _side effects_. Dus een programmeer stijl die nieuwe values berekent in plaats van bestaande data te veranderen.
+
+`try` blocks hebben ook nog de feature `finally` die gecombineerd kan worden (hoeft niet) met een `catch` block. Een `finally` block betekent: "run this block after trying to run the `try` block". Bijvoorbeeld:
+
+```javascript
+function transfer(from, amount) {
+  if (accounts[from] < amount) return;
+  let progress = 0;
+  try {
+    accounts[from] -= amount;
+    progress = 1;
+    accounts[getAccount()] += amount;
+    progress = 2;
+  } finally {
+    if (progress == 1) {
+      accounts[from] += amount;
+    }
+  }
+}
+```
+
+Deze function kijkt naar zijn eigen proces en als het merkt dat het ergens stopt waar het een inconsistente state heeft, repareert het de schade die het heeft gedaan.
+
+Zelfs als de `finally` code draait als een exception gegooid wordt in de `try` block, bemoeit het zich niet met de exception.
+
+### Selective Catching
+
+Wanneer een exception helemaal tot de laagste stack komt zonder gevangen te worden, wordt het behandeld door de omgeving. In browsers worden errors naar de console gestuurd. In Node.js wordt het hele proces gestopt wanneer een onbehandelde exception zich voordoet.
+
+Als je aan het programmeren bent is het het handigst om de error door te laten gaan zodat je deze kan analyseren en verbeteren.
+
+Om niks te doen met problemen die verwacht worden dat ze gebeuren is een slechte strategie.
+
+Ongeldig gebruik van de taal zal ook resulteren in exceptions die opkomen. Zulke exceptions kunnen ook gevangen worden.
+
+Wanneer een `catch` body gebruikt wordt, weet je dat er iets in de `try` body een exception heeft laten voordoen. Maar je weet niet waarom en welke code dit heeft laten doen.
+
+JS geeft geen directe ondersteuning voor het selectief afvangen van exceptions: of je vangt ze allemaal of geen één. Je kan er snel vanuit gaan dat de exception die je krijgt degene is die je wilde krijgen uit je `catch` block.
+
+Dit hoeft niet altijd het geval te zijn, want het kan zo zijn dat je een bug in je code heb zitten die een exception laat voordoen. Voorbeeld:
+
+```javascript
+for (;;) {
+  try {
+    let dir = promtDirection("Where?"); // ← typo!
+    console.log("You chose ", dir);
+    break;
+  } catch (e) {
+    console.log("Not a valid direction. Try again.");
+  }
+}
+```
+
+De `for (;;)` construct is een manier om bedoeld een loop te maken die niet stopt van zichzelf. In dit voorbeeld zit een spelfout die hierdoor een oneindige loop produceert met een error message die niet duidelijk de fout aanduid.
+
+Als een algemene regel, doe geen onnodige `catch` exceptions tenzij het gebruikt wordt om iemand ergens anders naar toe te sturen.
+
+Je kan nieuwe classes aanmaken die dan een bepaalde soort exceptions afvangen. Hierdoor kan de code doorlopen terwijl alleen specifieke exceptions afgevangen worden. Hierdoor kun je ook codes en errors beter scheiden van elkaar en wordt de code duidelijker.
+
+### Assertions
+
+**Assertions** zijn controles binnen een programma die bevestigen dat iets is wat het zou moeten zijn. Ze worden gebruikt om fouten van de programmeur te vinden.
+
+Het voordeel van assertions is dat er een duidelijke foutmelding wordt weergeven.
 
 ## H9: Regular Expressions
+
+**Regular expressions** zijn een manier om patterns te beschrijven in string data.
+
+### Creating a Regular Expression
+
+Een regular expression is een type van een object. Het kan geconstruct worden met de `RegExp` constructor of als een waarde geschreven worden door een enclosing pattern in forward slash (/) characters.
+
+```javascript
+let re1 = new RegExp("abc");
+let re2 = /abc/;
+```
+
+Deze twee hebben hetzelfde patroon.
+
+Backslashes worden anders behandeld. Sommige characters  kunnen alleen toegevoegd worden met een backslash
+
+```javascript
+let eighteenPlus = /eighteen\+/;
+```
+
+### Testing for Matches
+
+Regular expressions hebben veel methods, waarvan de simpelste `test` is.
+
+```javascript
+console.log(/abc/.test("abcde"));
+// → true
+console.log(/abc/.test("abxde"));
+// → false
+```
+
+### Sets of Characters
+
+Je kan ook nummers testen:
+
+```javascript
+console.log(/[0123456789]/.test("in 1992"));
+// → true
+console.log(/[0-9]/.test("in 1992"));
+// → true
+```
+
+Een aantal character groups hebben hun eigen shortcuts:
+
+* `\d` Cijfer 0-9
+* `\w` Letters
+* `\s` Whitespace
+* `\D` Geen cijfer
+* `\W` Geen letter
+* `\S` Geen whitespace
+* `.` Elke character behalve newline
+
+Date en time format kan zo getest worden:
+
+```javascript
+let dateTime = /\d\d-\d\d-\d\d\d\d \d\d:\d\d/;
+console.log(dateTime.test("01-30-2003 15:20"));
+// → true
+console.log(dateTime.test("30-jan-2003 15:20"));
+// → false
+```
+
+Deze backslash codes kunnenn ook gebruikt worden in []. [\d.] betekent een getal of . character. Binnen square brackets verliezen operators hun betekenis.
+
+Als je een set van characters wilt **inverten** (Allesbehalve de characters in de set matchen) kun je een dakje (^) gebruiken na de opening [].
+
+### Repeating Parts of a Pattern
+
+Als je een pattern meerdere keren wilt testen moet je een + zetten achter een regular expression, dus `/\d+/` matcht 1 of meer characters.
+
+```javascript
+console.log(/'\d+'/.test("'123'"));
+// → true
+console.log(/'\d+'/.test("''"));
+// → false
+console.log(/'\d*'/.test("'123'"));
+// → true
+console.log(/'\d*'/.test("''"));
+// → true
+```
+
+De ster (`*`) doet hetzelfde, alleen zorgt het ervoor dat het ook mogelijk is om 0 keer te matchen.
+
+Een ? maakt een gedeelte van een pattern **optioneel**, Waardoor het 0 of 1 keer kan voorkomen.
+
+```javascript
+let neighbor = /neighbou?r/;
+console.log(neighbor.test("neighbour"));
+// → true
+console.log(neighbor.test("neighbor"));
+// → true
+```
+
+Als je wilt dat een pattern precies een aantal keer voorkomt kun je {} gebruiken. {4} = 4x, {2,4} 2 tot 4 keer.
+
+```javascript
+let dateTime = /\d{1,2}-\d{1,2}-\d{4} \d{1,2}:\d{2}/;
+console.log(dateTime.test("1-30-2003 8:45"));
+// → true
+```
+
+Als laatste kan je ook {4,} doen wat betekent: 4 of meer.
+
+### Grouping Subexpressions
+
+Als je een operator op meerdere elementen wilt gebruiken moet je haakjes gebruiken.
+
+```javascript
+let cartoonCrying = /boo+(hoo+)+/i;
+console.log(cartoonCrying.test("Boohoooohoohooo"));
+// → true
+```
+
+De `i` aan het einde van de expression maakt het case insensitive.
+
+### Matches and Groups
+
+De `exec` (execute) method zal null returnen als er niks gevonden wordt en returnt een object met informatie van de match als het wel iets vindt.
+
+```javascript
+let match = /\d+/.exec("one two 100");
+console.log(match);
+// → ["100"]
+console.log(match.index);
+// → 8
+```
+
+Dus: Eerste twee zijn geen cijfers, laatste wel dus hij returnt 100.
+
+Een object die gereturnt wordt vanuit `exec` heeft ook een method, index, waarmee wordt aangegeven op welk punt de string begint.
+
+String waardes hebben een `match` method die hetzelfde doet:
+
+```javascript
+console.log("one two 100".match(/\d+/));
+// → ["100"]
+```
+
+Wanneer de regular expression subexpressions bevat (gegroepeerd door haakjes), de text die deze groepen matcht zal ook getoond worden in de array.
+
+```javascript
+let quotedText = /'([^']*)'/;
+console.log(quotedText.exec("she said 'hello'"));
+// → ["'hello'", "hello"]
+```
+
+Als een groep niet gematcht wordt, zal de array undefined geven:
+
+```javascript
+console.log(/bad(ly)?/.exec("bad"));
+// → ["bad", undefined]
+console.log(/(\d)+/.exec("123"));
+// → ["123", "3"]
+```
+
+Ook als de groep meerdere keren gematcht wordt zal alleen de laatste match in de array getoond worden.
+
+Groepen kunnen handig zijn voor het extracten van delen van een string.
+
+### The Date Class
+
+JS heeft een standaard class voor het representeren van datums of "points in time". Het heet `Date`. Als je een date object maakt met `new` krijg je de huidige dag en tijd:
+
+```javascript
+console.log(new Date());
+// → Mon Nov 13 2017 16:19:11 GMT+0100 (CET)
+```
+
+Je kan ook een object maken voor een specifieke tijd:
+
+```javascript
+console.log(new Date(2009, 11, 9));
+// → Wed Dec 09 2009 00:00:00 GMT+0100 (CET)
+console.log(new Date(2009, 11, 9, 12, 59, 59, 999));
+// → Wed Dec 09 2009 12:59:59 GMT+0100 (CET)
+```
+
+JS gebruikt een convention waarbij maandnummers beginnen met 0 en dagnummers met 1.
+
+De laatste 4 argumenten zijn optioneel.
+
+Timestamps worden opgeslagen als het ummer milliseconden sinds het begin van 1970, in de UTC tijdzone. Je kan negatieve nummers gebruiken voor vóór 1970:
+
+```javascript
+console.log(new Date(2013, 11, 19).getTime());
+// → 1387407600000
+console.log(new Date(1387407600000));
+// → Thu Dec 19 2013 00:00:00 GMT+0100 (CET)
+```
+
+Als je de `Date` constructor een enkele argument geeft, zal deze argument behandeld worden als een milliseconde. Je kan de huidige millisecond count door een nieuw `Date` object te maken en `getTime` erop te gebruiken of door de `Date.now` function te doen.
+
+Date objects hebben ook methods zoals `getFullYear`, `getMonth`, `getDate`, `getHours`, `getMinutes` en `getSeconds` om hun componenten te extracten.
+
+Door haakjes om de delen van de expression te zetten waar we geïnteresseerd zijn, kunnen we een date object maken van een string.
+
+```javascript
+function getDate(string) {
+  let [_, month, day, year] =
+    /(\d{1,2})-(\d{1,2})-(\d{4})/.exec(string);
+  return new Date(year, month - 1, day);
+}
+console.log(getDate("1-30-2003"));
+// → Thu Jan 30 2003 00:00:00 GMT+0100 (CET)
+```
+
+De _ (underscore) binding wordt genegeerd en wordt alleen gebruikt om het volledige match element over te slaan in de array die gereturnt wordt door `exec`.
+
+### Word and String Boundaries
+
+Als je wilt dat de match de hele string pakt, kunnen we markers ^ en $ gebruiken. Het dakje matcht de start van de input string en de $ het einde. Dus `/^\d+$/` matcht een string die bestaat uit één of meer getallen.
+
+Als we ervoor willen zorgen dat de datum begint en eindigt met een word boundary, kan de marker `\b` gebruikt worden.
+
+```javascript
+console.log(/cat/.test("concatenate"));
+// → true
+console.log(/\bcat\b/.test("concatenate"));
+// → false
+```
+
+De boundary marker matcht niet een echte character.
+
+### Choice Patterns
+
+De pipe character (`|`) geeft een keuze aan tussen de pattern links ervan en rechts. Dus: | = of. Haakjes kunnen gebruikt worden om het werkbare deel van de operator aan te geven in de pattern
+
+```javascript
+let animalCount = /\b\d+ (pig|cow|chicken)s?\b/;
+console.log(animalCount.test("15 pigs"));
+// → true
+console.log(animalCount.test("15 pigchickens"));
+// → false
+```
+
+### The Mechanics of Matching
+
+Conceptueel gezien, wanneer `exec` of `test` gebruikt wordt, zal de regular expression engine zoeken voor een match in jouw string, door de expression als eerst te testen vanaf het begin van de string, daarna vanaf de tweede cahracter, totdat het een match vind of het het einde bereikt van de string. Het zal of, de eerste gevonden match returnen, of falen om uberhaupt een match te vinden.
+
+Om het daadwerkelijke matchen te doen, behandeld de engine een regular expression zoals het dat zou doen bij een flow diagram.
+
+De expression matcht als het een pad kan vinden vanaf de linkerzijde van de diagram tot aan de rechterzijde. We houden een huidige positie in de string, en elke keer als we bewegen door een box, wordt er gekeken of dat deel van de string na de huidige positie de box matcht.
+
+Dus als we `"the 3 pigs"` proberen te matchen vanaf position 4, zal onze progress door de flow chart er zo uit zien.
+
+[flow-chart plaatje](re_pigchickens.svg)
+
+* Bij position 4, is een word boundary, dus kunnen we voorbij de eerste box.
+
+* Nog steeds bij positie 4, vinden we een getal, dus kunnen we ook voorbij het tweede blok. En omdat een getal gematcht is kunnen we naar positie 5.
+
+* Er wordt bij positie 5 gekeken of er nog een digit is, of dat er iets anders is. Er is een spatie, dus gaan we door naar position 6.
+
+* Hier staat pig, dus deze branch wordt genomen.
+
+* Bij position 9 staat een S dus we gaan door de s box.
+
+* Bij position 10 wordt een wordboundary gematcht wat hetzelfde is als het einde van een string. Dus ook door deze komen we. Geeft **TRUE**
+
+### Backtracking
+
+
+
+
+
+
+
+
 
 ## H10: Modules
 
