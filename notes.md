@@ -2149,7 +2149,7 @@ De expression matcht als het een pad kan vinden vanaf de linkerzijde van de diag
 
 Dus als we `"the 3 pigs"` proberen te matchen vanaf position 4, zal onze progress door de flow chart er zo uit zien.
 
-[flow-chart plaatje](re_pigchickens.svg)
+![flow-chart plaatje](re_pigchickens.svg)
 
 * Bij position 4, is een word boundary, dus kunnen we voorbij de eerste box.
 
@@ -2165,14 +2165,349 @@ Dus als we `"the 3 pigs"` proberen te matchen vanaf position 4, zal onze progres
 
 ### Backtracking
 
+Backtracking is als er meerdere opties zijn waarmee gematcht kan worden en als de ene optie niet werkt, er terug wordt gekeken of het matcht bij de andere opties.
 
+De matcher stopt wanneer het een volledige match heeft gemaakt. Dus als het skipt branches als de match volledig is voordat het door alle branches heeft moeten checken.
 
+Backtracking gebeurt ook bij operators zoals `+` en `*`.
 
+### The Replace Method
 
+String waardes hebben een `replace` method dat gebruikt kan worden om een deel van een string te vervangen door een andere string.
 
+```javascript
+console.log("papa".replace("p", "m"));
+// → mapa
+```
 
+Het eerste argument kan ook worden vervangen door een regular expression, waardoor de eerste match van de regular expression wordt vervangen. Als `g` achter de regular expression wordt gezet zullen alle matches vervangen worden.
 
+```javascript
+console.log("Borobudur".replace(/[ou]/, "a"));
+// → Barobudur
+console.log("Borobudur".replace(/[ou]/g, "a"));
+// → Barabadar
+```
+
+De kracht van regular expressions met `replace` komt van het feit dat er naar gematchte groepen gerefereerd kan worden in de replacement string.
+
+```javascript
+console.log(
+  "Liskov, Barbara\nMcCarthy, John\nWadler, Philip"
+    .replace(/(\w+), (\w+)/g, "$2 $1"));
+// → Barbara Liskov
+//   John McCarthy
+//   Philip Wadler
+```
+
+Hierin betekenen de `$2` en `$1` de eerste en tweede match haakjes (`(\w+)`). De tweede worden als eerste gematcht, daarna de eerste dus de output is omgedraaid.
+
+Het is ook mogelijk om een function mee te geven als het tweede argument van `replace`.
+
+Bijvoorbeeld zo:
+
+```javascript
+let s = "the cia and fbi";
+console.log(s.replace(/\b(fbi|cia)\b/g,
+            str => str.toUpperCase()));
+// → the CIA and FBI
+```
+
+### Greed
+
+Je kan ook `replace` gebruiken om alle comments te verwijderen in een stukje code.
+
+```javascript
+function stripComments(code) {
+  return code.replace(/\/\/.*|\/\*[^]*\*\//g, "");
+}
+console.log(stripComments("1 + /* 2 */3"));
+// → 1 + 3
+console.log(stripComments("x = 10;// ten!"));
+// → x = 10;
+console.log(stripComments("1 /* a */+/* b */ 1"));
+// → 1  1
+```
+
+Voor de **or** operator staan twee forward slashes die door de backward slashes als speciaal teken worden toegestaan. Deze forward slashes representeren de slashes die gebruikt worden bij comments.
+
+Repetition operators worden ook wel greedy genoemd omdat ze zoveel mogelijk matchen en van daar uit backtracken. Als een question mark ? achter een operator wordt gezet wordt hij nongreedy. Nongreedy betekent dat de operator begint met zo min mogelijk matchen.
+
+Nongreedy eerst gebruiken is best practice.
+
+### Dynamically Creating RegExp Objects
+
+Wanneer je niet weet wat het juiste patroon is om te gebruiken omdat je bepaalde data mist, kun je een string opbouwen met de RegExp constructor.
+
+Bijvoorbeeld zo:
+
+```javascript
+let name = "harry";
+let text = "Harry is a suspicious character.";
+let regexp = new RegExp("\\b(" + name + ")\\b", "gi");
+console.log(text.replace(regexp, "_$1_"));
+// → _Harry_ is a suspicious character.
+```
+
+gi staat voor global en case insensitive.
+
+Je kan ook als er speciale tekens in de naam gebruikt worden ervoor zorgen dat deze geaccepteerd worden:
+
+```javascript
+let name = "dea+hl[]rd";
+let text = "This dea+hl[]rd guy is super annoying.";
+let escaped = name.replace(/[\\[.+*?(){|^$]/g, "\\$&");
+let regexp = new RegExp("\\b" + escaped + "\\b", "gi");
+console.log(text.replace(regexp, "_$&_"));
+// → This _dea+hl[]rd_ guy is super annoying.
+```
+
+### The Search Method
+
+De indexOf method kan op strings met een regular expression niet worden toegepast. Hiervoor kan de `search` method gebruikt worden. Bijvoorbeeld zo:
+
+```javascript
+console.log("  word".search(/\S/));
+// → 2
+console.log("    ".search(/\S/));
+// → -1
+```
+
+### The lastIndex Property
+
+Regular expression objects hebben properties zoals `source` (bevat de string waarvan de expression gemaakt was) en `lastIndex` (bepaald waar de volgende match begint).
+
+In deze gevallen moeten de global (`g`) en sticky (`y`) opties aan hebben staan en de match moet gebeuren door middel van de `exec` method. Bijvoorbeeld:
+
+```javascript
+let pattern = /y/g;
+pattern.lastIndex = 3;
+let match = pattern.exec("xyzzy");
+console.log(match.index);
+// → 4
+console.log(pattern.lastIndex);
+// → 5
+```
+
+Als de match succesvol is, zal de call naar `exec` automatisch de `lastIndex` property updaten om te wijzen naar na de match.
+
+Het verschil tussen global en sticky is dat met sticky, de match alleen zal slagen als het direct start bij `lastIndex` terwijl bij global, het zal zoeken naar een position waar een match kan beginnen.
+
+Global regular expressions moeten alleen gebruikt worden bij `replace` en specifieke plekken waar je `lastIndex` wilt gebruiken.
+
+### Looping Over Matches
+
+Wat vaak gedaan wordt is om te scannen door alle gevallen van een pattern in een string, op een manier die toegang geeft naar het match object in de loop body. Dit kan gedaan worden door `lastIndex` en `exec` te gebruiken:
+
+```javascript
+let input = "A string with 3 numbers in it... 42 and 88.";
+let number = /\b\d+\b/g;
+let match;
+while (match = number.exec(input)) {
+  console.log("Found", match[0], "at", match.index);
+}
+// → Found 3 at 14
+//   Found 42 at 33
+//   Found 88 at 40
+```
+
+### Parsing an INI File
+
+De regels voor een INI file zijn:
+
+* Lege regels en regels die beginnen met semicolons (;) worden genegeerd
+* Regels wrapped in [] beginnen een nieuwe section
+* Regels die een alphanumeric identifier bevatten gevolgd door een = character voegen een setting toe aan de huidige section
+* De rest maakt niks uit
+
+### International Characters
+
+Letters die niet in het normale alphabet zitten kunnen gematcht worden met `\W` (nonword category).
+
+### Summary
+
+Regular expressions zijn objects die patterns in strings representeren. Ze hebben hun eigen taal om deze patterns te expressen.
+
+| Patterns | Wat ze doen |
+| -------- | ----------- |
+| `/abc/` |	A sequence of characters |
+| `/[abc]/`	|  Any character from a set of characters |
+| `/[^abc]/` |  Any character not in a set of characters |
+| `/[0-9]/`	|  Any character in a range of characters |
+| `/x+/`	|  One or more occurrences of the pattern x |
+| `/x+?/`	|  One or more occurrences, nongreedy |
+| `/x*/`	|  Zero or more occurrences |
+| `/x?/`	|  Zero or one occurrence |
+| `/x{2,4}/`	|  Two to four occurrences |
+| `/(abc)/`	|  A group |
+| <code>/a&#124;b&#124;c/</code>|  Any one of several patterns |
+| `/\d/`	|  Any digit character |
+| `/\w/`	|  An alphanumeric character (“word character”) |
+| `/\s/`	|  Any whitespace character |
+| `/./`	|  Any character except newlines |
+| `/\b/`	|  A word boundary |
+| `/^/`	|  Start of input |
+| `/$/`	|  End of input |
 
 ## H10: Modules
+
+Het begrijpen van een groot script waarin alles met elkaar verbonden is, is lastig en als een deel van de functionaliteit van dit script elders gebruikt moet worden is het bijna handiger om het opnieuw te schrijven.
+
+### Modules
+
+Hiervoor zijn modules bedacht. Modules zijn stukjes van een geheel die specificeren op welke andere modules het afhankelijk is en welke functionaliteiten het geeft voor andere modules om te gebruiken.
+
+De relaties tussen modules heten **dependencies**.
+
+### Packages
+
+Packages zijn stukjes code die 1 of meer modules bevatten.
+
+Een wereldwijde package opslagplaats is NPM. NPM is een online service waar men packages kan downloaden (en uploaden) en een programma dat helpt met het installeren en managen van deze packages.
+
+Packages zijn handig omdat code die al een keer geschreven is door een ander, niet meer geschreven hoeft te worden door jezelf.
+
+Wanneer je iemand anders z'n js code gebruikt van NPM, let dan op de license die erbij hoort.
+
+### Improvised Modules
+
+Eerst werden modules zo gemaakt:
+
+```javascript
+const weekDay = function() {
+  const names = ["Sunday", "Monday", "Tuesday", "Wednesday",
+                 "Thursday", "Friday", "Saturday"];
+  return {
+    name(number) { return names[number]; },
+    number(name) { return names.indexOf(name); }
+  };
+}();
+
+console.log(weekDay.name(weekDay.number("Sunday")));
+// → Sunday
+```
+
+Deze stijl van modules geeft isolatie, maar declareert geen dependencies. In plaats hiervan stopt het de interface in de global scope en verwacht het de dependencies.
+
+Als dependency relaties deel uit moeten maken van de code, moet er controle zijn over het laden van dependencies. Hiervoor moet het mogelijk zijn om strings uit te voeren als code en dit kan met JavaScript.
+
+### Evaluating Data As Code
+
+Er zijn verschillende manieren om data (een string code) te pakken en te runnen als onderdeel van het huidige script.
+
+De meest overduidelijke manier is de speciale `eval` operator, wat een string zal uitvoeren in de huidige scope. Maar dit zorgt vaak voor verwarring.
+
+Een handigere manier om dit te doen is om de `Function` constructor te gebruiken. Het neemt twee arguments: een string die een door komma gescheiden lijst van arguments bevat en een string die de function body bevat. Het wrapt de code in een function value zodat het zijn eigen scope krijgt en geen rare dingen doet met andere scopes.
+
+```javascript
+let plusOne = Function("n", "return n + 1;");
+console.log(plusOne(4));
+// → 5
+```
+
+We kunnen de code van de module in een function wrappen en function scope gebruiken als de scope van de module.
+
+### CommonJS
+
+De meest gebruikte benadering naar JS modules heet **CommonJS modules**. Dit wordt gebruikt door Node.js en de meeste packages op NPM.
+
+CommonJS werkt door middel van een function die `require` heet. Wanneer dit aangeroepen wordt met een module naam van een dependency, zorgt het ervoor dat de module wordt gelat en de interface gereturned.
+
+De loader wrapt de module in een function en krijgen hierdoor hun eigen local scope. Het enige wat ze hoeven te doen is `require` aan te roepen en hun interfaces te stoppen in het object die gebonden is aan `exports`.
+
+Een voorbeeld van een `require`:
+
+```javascript
+const ordinal = require("ordinal");
+const {days, months} = require("date-names");
+
+exports.formatDate = function(date, format) {
+  return format.replace(/YYYY|M(MMM)?|Do?|dddd/g, tag => {
+    if (tag == "YYYY") return date.getFullYear();
+    if (tag == "M") return date.getMonth();
+    if (tag == "MMMM") return months[date.getMonth()];
+    if (tag == "D") return date.getDate();
+    if (tag == "Do") return ordinal(date.getDate());
+    if (tag == "dddd") return days[date.getDay()];
+  });
+};
+```
+
+De module kan op deze manier gebruikt worden:
+
+```javascript
+const {formatDate} = require("./format-date");
+
+console.log(formatDate(new Date(2017, 9, 13),
+                       "dddd the Do"));
+// → Friday the 13th
+```
+
+Require kan gedefinieerd worden in een minimalistische vorm op deze manier:
+
+```javascript
+require.cache = Object.create(null);
+
+function require(name) {
+  if (!(name in require.cache)) {
+    let code = readFile(name);
+    let module = {exports: {}};
+    require.cache[name] = module;
+    let wrapper = Function("require, exports, module", code);
+    wrapper(require, module.exports, module);
+  }
+  return require.cache[name].exports;
+}
+```
+
+`require` houdt bij welke modules al ingeladen zijn.
+
+`module.exports` kan overschreven worden. Vaak wordt dit gedaan om 1 waarde mee te geven in plaats van een interface object.
+
+Door `require`, `exports`, en `module` als parameters te gebruiken voor de gegenereerde wrapper function, zal de lader ervoor zorgen dat deze bindings beschikbaar zijn in de scope van de module.
+
+Een `require` die naar een daadwerkelijk bestand gaat wordt vaak zo geschreven: `./format-date` omdat de file relatief van het huidige module staat.
+
+### EcmaScript Modules
+
+De JavaScript standard van 2015 heeft een eigen, andere module system gekregen. Deze heten ES (ECMAScript) modules.
+
+In dit module systeem is de notatie geïntegreerd in de taal en ziet het er zo uit:
+
+```javascript
+import ordinal from "ordinal";
+import {days, months} from "date-names";
+
+export function formatDate(date, format) { /* ... */ }
+```
+
+Om een default export te maken, schrijf je `export default` voor een expression, een functie declaratie, of een class declaratie.
+
+```javascript
+export default ["Winter", "Spring", "Summer", "Autumn"];
+```
+
+Het is ook mogelijk om de geïmporteerde bindings te hernoemen door middel van `as`:
+
+```javascript
+import {days as dayNames} from "date-names";
+
+console.log(dayNames.length);
+// → 7
+```
+
+Ook een belangrijk verschil is dat ES module imports beginnen voordat het script van een module begint met draaien. Dit betekent dat `import` declaraties niet mogen voorkomen in functions of blocks en de namen van dependencies moeten quoted strings zijn, niet arbitrary expressions.
+
+### Building and Bundling
+
+**Bundlers** zijn tools die ervoor zorgen dat een hele hoop modules bij elkaar worden gestopt in een groot bestand.
+
+### Module Design
+
+Het handigste om te doen met het designen van een module is om de bestaande conventions te gebruiken. Wat ook handig is van module design is het gemak waarmee iets gemaakt kan worden met andere code.
+
+Houd de code simpel.
+
+Probeer de compositie van de code gelijk te houden. Probeer zoveel mogelijk overeenkomende datastructuren te gebruiken.
 
 ## H11: Asynchronous Programming
